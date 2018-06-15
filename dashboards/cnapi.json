@@ -278,6 +278,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "description": "This ignores serverwaitlist* and taskwait routes",
       "fill": 1,
       "gridPos": {
         "h": 8,
@@ -290,6 +291,7 @@
         "alignAsTable": true,
         "avg": false,
         "current": false,
+        "hideZero": true,
         "max": true,
         "min": true,
         "rightSide": false,
@@ -311,29 +313,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "$$hashKey": "object:7766",
-          "expr": "histogram_quantile(0.90, sum(rate(http_request_duration_seconds{service=\"cnapi\"}[5m])) by (le))",
+          "$$hashKey": "object:182",
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds{service=\"cnapi\",route!~\"serverwaitlist.*\",route!~\"taskwait\"}[5m])) by (le,route))",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "p90",
+          "legendFormat": "{{route}}",
           "refId": "A"
-        },
-        {
-          "$$hashKey": "object:7767",
-          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds{service=\"cnapi\"}[5m])) by (le))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "p95",
-          "refId": "B"
-        },
-        {
-          "$$hashKey": "object:7768",
-          "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds{service=\"cnapi\"}[5m])) by (le))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "p99",
-          "refId": "C"
         }
       ],
       "thresholds": [],
@@ -417,7 +403,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "$$hashKey": "object:7330",
           "expr": "sum(rate(http_requests_completed{service=\"cnapi\"}[5m])) by (route)",
           "format": "time_series",
           "intervalFactor": 1,
@@ -444,7 +429,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:7382",
           "format": "short",
           "label": "requests",
           "logBase": 1,
@@ -453,7 +437,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:7383",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1313,7 +1296,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "$$hashKey": "object:7506",
           "expr": "sum(rate(fast_client_requests_completed{service=\"cnapi\"}[5m])) by (rpcMethod)",
           "format": "time_series",
           "intervalFactor": 1,
@@ -1586,5 +1568,5 @@
   "timezone": "",
   "title": "CNAPI",
   "uid": "eihcmJIiz",
-  "version": 10
+  "version": 11
 }
