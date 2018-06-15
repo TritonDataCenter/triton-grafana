@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 3,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -287,13 +287,15 @@
       },
       "id": 31,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
         "current": false,
-        "max": false,
-        "min": false,
-        "show": false,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -309,18 +311,35 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds{service=\"cnapi\"}[5m])) by (le))",
+          "$$hashKey": "object:7766",
+          "expr": "histogram_quantile(0.90, sum(rate(http_request_duration_seconds{service=\"cnapi\"}[5m])) by (le))",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "duration",
+          "legendFormat": "p90",
           "refId": "A"
+        },
+        {
+          "$$hashKey": "object:7767",
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds{service=\"cnapi\"}[5m])) by (le))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "p95",
+          "refId": "B"
+        },
+        {
+          "$$hashKey": "object:7768",
+          "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds{service=\"cnapi\"}[5m])) by (le))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "p99",
+          "refId": "C"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "CNAPI request duration (p95)",
+      "title": "CNAPI request duration",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -376,6 +395,7 @@
         "alignAsTable": false,
         "avg": false,
         "current": false,
+        "hideZero": true,
         "max": false,
         "min": false,
         "rightSide": false,
@@ -397,7 +417,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(http_requests_completed{service=\"cnapi\"}[5m])) by (route)",
+          "$$hashKey": "object:7330",
+          "expr": "sum(rate(http_requests_completed{service=\"cnapi\"}[5m])) by (route)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{route}}",
@@ -407,7 +428,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "CNAPI requests per endpoint",
+      "title": "CNAPI requests per endpoint (per second)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -423,6 +444,7 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:7382",
           "format": "short",
           "label": "requests",
           "logBase": 1,
@@ -431,6 +453,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:7383",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -461,6 +484,7 @@
       "legend": {
         "avg": false,
         "current": false,
+        "hideZero": true,
         "max": false,
         "min": false,
         "show": true,
@@ -1268,6 +1292,7 @@
       "legend": {
         "avg": false,
         "current": false,
+        "hideZero": true,
         "max": false,
         "min": false,
         "show": true,
@@ -1288,7 +1313,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(fast_client_requests_completed{service=\"cnapi\"}[5m])) by (rpcMethod)",
+          "$$hashKey": "object:7506",
+          "expr": "sum(rate(fast_client_requests_completed{service=\"cnapi\"}[5m])) by (rpcMethod)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{rpcMethod}}",
@@ -1298,7 +1324,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "CNAPI moray requests by RPC",
+      "title": "CNAPI moray requests by RPC (per second)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1350,13 +1376,14 @@
       },
       "id": 28,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
         "current": false,
-        "max": false,
-        "min": false,
-        "show": false,
+        "max": true,
+        "min": true,
+        "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -1372,17 +1399,31 @@
       "steppedLine": false,
       "targets": [
         {
+          "expr": "histogram_quantile(0.90, sum(rate(fast_client_request_time_ms{service=\"cnapi\"}[5m])) by (le))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "p90",
+          "refId": "A"
+        },
+        {
           "expr": "histogram_quantile(0.95, sum(rate(fast_client_request_time_ms{service=\"cnapi\"}[5m])) by (le))",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "latency",
-          "refId": "A"
+          "legendFormat": "p95",
+          "refId": "B"
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(fast_client_request_time_ms{service=\"cnapi\"}[5m])) by (le))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "p99",
+          "refId": "C"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "CNAPI moray latency (p95)",
+      "title": "CNAPI moray latency",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1506,6 +1547,7 @@
       }
     }
   ],
+  "refresh": false,
   "schemaVersion": 16,
   "style": "dark",
   "tags": [],
@@ -1543,6 +1585,6 @@
   },
   "timezone": "",
   "title": "CNAPI",
-  "uid": "mtNaBZ7mz",
-  "version": 26
+  "uid": "eihcmJIiz",
+  "version": 10
 }
