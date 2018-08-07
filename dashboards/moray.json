@@ -16,6 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 3,
+  "iteration": 1533677532703,
   "links": [],
   "panels": [
     {
@@ -58,7 +59,6 @@
       "steppedLine": false,
       "targets": [
         {
-          "$$hashKey": "object:6829",
           "expr": "sum(rate(fast_requests_completed{instance=~\"moray.\"}[5m])) by (rpcMethod)",
           "format": "time_series",
           "intervalFactor": 1,
@@ -114,10 +114,1128 @@
       "datasource": null,
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 9,
         "w": 24,
         "x": 0,
         "y": 8
+      },
+      "id": 41,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(fast_request_time_ms[5m])) by (le,instance))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "p99 request latency by instance",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "ms",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 42,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(fast_request_time_ms[5m])) by (le,rpcMethod))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{rpcMethod}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "p99 request latency by RPC",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "ms",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 26
+      },
+      "id": 25,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(postgres_connections_open) by (instance)",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Moray connections to Manatee",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 26
+      },
+      "id": 21,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "plugin_moray_nConnectionsActive{exported_instance=\"\",instance=~\"moray.\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}-{{port}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Moray nConnectionsActive",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 35
+      },
+      "id": 7,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": "moray",
+      "repeatDirection": "v",
+      "scopedVars": {
+        "moray": {
+          "selected": false,
+          "text": "moray0",
+          "value": "moray0"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "cpucap_effective_percentage{instance=~\"$moray\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "cap",
+          "refId": "A"
+        },
+        {
+          "expr": "cpucap_cur_usage_percentage{instance=~\"$moray\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "used",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$moray cpu usage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 35
+      },
+      "id": 33,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": "moray",
+      "repeatDirection": "v",
+      "scopedVars": {
+        "moray": {
+          "selected": false,
+          "text": "moray0",
+          "value": "moray0"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "mem_limit{instance=\"$moray\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "cap",
+          "refId": "A"
+        },
+        {
+          "expr": "mem_agg_usage{instance=\"$moray\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "used",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$moray memory usage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 44
+      },
+      "id": 43,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "repeatIteration": 1533677532703,
+      "repeatPanelId": 7,
+      "scopedVars": {
+        "moray": {
+          "selected": false,
+          "text": "moray1",
+          "value": "moray1"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "cpucap_effective_percentage{instance=~\"$moray\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "cap",
+          "refId": "A"
+        },
+        {
+          "expr": "cpucap_cur_usage_percentage{instance=~\"$moray\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "used",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$moray cpu usage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 44
+      },
+      "id": 45,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "repeatIteration": 1533677532703,
+      "repeatPanelId": 33,
+      "scopedVars": {
+        "moray": {
+          "selected": false,
+          "text": "moray1",
+          "value": "moray1"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "mem_limit{instance=\"$moray\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "cap",
+          "refId": "A"
+        },
+        {
+          "expr": "mem_agg_usage{instance=\"$moray\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "used",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$moray memory usage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 53
+      },
+      "id": 44,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "repeatIteration": 1533677532703,
+      "repeatPanelId": 7,
+      "scopedVars": {
+        "moray": {
+          "selected": false,
+          "text": "moray2",
+          "value": "moray2"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "cpucap_effective_percentage{instance=~\"$moray\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "cap",
+          "refId": "A"
+        },
+        {
+          "expr": "cpucap_cur_usage_percentage{instance=~\"$moray\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "used",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$moray cpu usage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 53
+      },
+      "id": 46,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "minSpan": 1,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "repeatIteration": 1533677532703,
+      "repeatPanelId": 33,
+      "scopedVars": {
+        "moray": {
+          "selected": false,
+          "text": "moray2",
+          "value": "moray2"
+        }
+      },
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "mem_limit{instance=\"$moray\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "cap",
+          "refId": "A"
+        },
+        {
+          "expr": "mem_agg_usage{instance=\"$moray\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "used",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$moray memory usage",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 62
+      },
+      "id": 23,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "rate(plugin_moray_nRequestsCompleted{instance=~\"moray.\",exported_instance=\"\"}[5m])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}-{{port}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Moray nRequestsCompleted",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 62
+      },
+      "id": 19,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "rate(plugin_moray_nRequestsFailed{exported_instance=\"\",instance=~\"moray.\"}[5m])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}-{{port}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Moray nRequestsFailed",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 71
       },
       "id": 3,
       "legend": {
@@ -135,18 +1253,28 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
+      "minSpan": 1,
       "nullPointMode": "null",
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
+      "repeat": "moray",
+      "repeatDirection": "v",
+      "scopedVars": {
+        "moray": {
+          "selected": false,
+          "text": "moray0",
+          "value": "moray0"
+        }
+      },
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(fast_requests_completed{instance=~\"moray0\"}[5m])) by (rpcMethod)",
+          "expr": "sum(rate(fast_requests_completed{instance=\"$moray\"}[5m])) by (rpcMethod)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{rpcMethod}}",
@@ -156,7 +1284,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "moray0 RPCs/sec by Type",
+      "title": "$moray RPCs/sec by Type",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -204,9 +1332,9 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 79
       },
-      "id": 4,
+      "id": 47,
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -222,19 +1350,30 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
+      "minSpan": 1,
       "nullPointMode": "null",
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "repeatIteration": 1533677532703,
+      "repeatPanelId": 3,
+      "scopedVars": {
+        "moray": {
+          "selected": false,
+          "text": "moray1",
+          "value": "moray1"
+        }
+      },
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "$$hashKey": "object:6981",
-          "expr": "sum(rate(fast_requests_completed{instance=~\"moray1\"}[5m])) by (rpcMethod)",
+          "expr": "sum(rate(fast_requests_completed{instance=\"$moray\"}[5m])) by (rpcMethod)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{rpcMethod}}",
@@ -244,7 +1383,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "moray1 RPCs/sec by Type",
+      "title": "$moray RPCs/sec by Type",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -292,9 +1431,9 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 87
       },
-      "id": 5,
+      "id": 48,
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -310,18 +1449,30 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
+      "minSpan": 1,
       "nullPointMode": "null",
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
+      "repeat": null,
+      "repeatDirection": "v",
+      "repeatIteration": 1533677532703,
+      "repeatPanelId": 3,
+      "scopedVars": {
+        "moray": {
+          "selected": false,
+          "text": "moray2",
+          "value": "moray2"
+        }
+      },
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(fast_requests_completed{instance=~\"moray2\"}[5m])) by (rpcMethod)",
+          "expr": "sum(rate(fast_requests_completed{instance=\"$moray\"}[5m])) by (rpcMethod)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{rpcMethod}}",
@@ -331,7 +1482,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "moray2 RPCs/sec by Type",
+      "title": "$moray RPCs/sec by Type",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -374,7 +1525,55 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "prometheus0",
+        "hide": 2,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "moray",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "moray0",
+            "value": "moray0"
+          },
+          {
+            "selected": false,
+            "text": "moray1",
+            "value": "moray1"
+          },
+          {
+            "selected": false,
+            "text": "moray2",
+            "value": "moray2"
+          }
+        ],
+        "query": "fast_requests_completed",
+        "refresh": 0,
+        "regex": "/.*instance=\"(moray[0-9]+)\".*/",
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
   },
   "time": {
     "from": "now-6h",
@@ -408,5 +1607,5 @@
   "timezone": "",
   "title": "Moray",
   "uid": "34L2Sz7mz",
-  "version": 4
+  "version": 16
 }
