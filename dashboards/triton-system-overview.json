@@ -161,7 +161,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(time_of_day{instance=~\"[[triton_service]].\"})",
+          "expr": "count(time_of_day{alias=~\"[[triton_service]].\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -242,7 +242,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(mem_limit{instance=~\"[[triton_service]].*\"})",
+          "expr": "sum(mem_limit{alias=~\"[[triton_service]].*\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "metric": "mem_limit",
@@ -325,7 +325,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(zfs_used{instance=~\"[[triton_service]].*\"})",
+          "expr": "sum(zfs_used{alias=~\"[[triton_service]].*\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "metric": "mem_agg_usage",
@@ -389,11 +389,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "((increase(cpu_sys_usage{instance=~\"[[triton_service]].*\"}[60s]) + increase(cpu_user_usage{instance=~\"[[triton_service]].*\"}[60s])) / 60000000000)",
+          "expr": "((increase(cpu_sys_usage{alias=~\"[[triton_service]].*\"}[60s]) + increase(cpu_user_usage{alias=~\"[[triton_service]].*\"}[60s])) / 60000000000)",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "CPU Util - {{instance}} - {{job}}",
+          "legendFormat": "CPU Util - {{alias}} - {{job}}",
           "metric": "cpu",
           "refId": "A",
           "step": 10
@@ -483,11 +483,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "load_average{instance=~\"[[triton_service]].*\"}",
+          "expr": "load_average{alias=~\"[[triton_service]].*\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "Load Average {{instance}}",
+          "legendFormat": "Load Average {{alias}}",
           "refId": "A",
           "step": 10
         }
@@ -571,10 +571,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "cpucap_cur_usage_percentage{instance=~\"[[triton_service]].*\"} / cpucap_effective_percentage{instance=~\"[[triton_service]].*\"} \n",
+          "expr": "cpucap_cur_usage_percentage{alias=~\"[[triton_service]].*\"} / cpucap_effective_percentage{alias=~\"[[triton_service]].*\"} \n",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -657,10 +657,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "((increase(cpu_user_usage{instance=~\"[[triton_service]].*\"}[60s])) / 60000000000)",
+          "expr": "((increase(cpu_user_usage{alias=~\"[[triton_service]].*\"}[60s])) / 60000000000)",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -743,10 +743,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "((increase(cpu_sys_usage{instance=~\"[[triton_service]].*\"}[60s])) / 60000000000)",
+          "expr": "((increase(cpu_sys_usage{alias=~\"[[triton_service]].*\"}[60s])) / 60000000000)",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -829,10 +829,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "((increase(cpu_wait_time{instance=~\"[[triton_service]].*\"}[60s])) / 60000000000)",
+          "expr": "((increase(cpu_wait_time{alias=~\"[[triton_service]].*\"}[60s])) / 60000000000)",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -924,20 +924,20 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_limit{instance=~\"[[triton_service]].*\"}",
+          "expr": "mem_limit{alias=~\"[[triton_service]].*\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "Max Mem {{instance}}",
+          "legendFormat": "Max Mem {{alias}}",
           "refId": "A",
           "step": 10
         },
         {
-          "expr": "mem_agg_usage{instance=~\"[[triton_service]].*\"}",
+          "expr": "mem_agg_usage{alias=~\"[[triton_service]].*\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "Mem Allocated {{instance}}",
+          "legendFormat": "Mem Allocated {{alias}}",
           "metric": "mem",
           "refId": "B",
           "step": 10
@@ -1031,20 +1031,20 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_swap_limit{instance=~\"[[triton_service]].*\"}",
+          "expr": "mem_swap_limit{alias=~\"[[triton_service]].*\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "Max swap  {{instance}}",
+          "legendFormat": "Max swap  {{alias}}",
           "refId": "A",
           "step": 10
         },
         {
-          "expr": "mem_swap{instance=~\"[[triton_service]].*\"}",
+          "expr": "mem_swap{alias=~\"[[triton_service]].*\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "swap {{instance}}",
+          "legendFormat": "swap {{alias}}",
           "metric": "mem",
           "refId": "B",
           "step": 10
@@ -1137,20 +1137,20 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(increase(net_agg_bytes_out{instance=~\"[[triton_service]].*\"}[60s]) / 60)",
+          "expr": "(increase(net_agg_bytes_out{alias=~\"[[triton_service]].*\"}[60s]) / 60)",
           "format": "time_series",
           "interval": "1s",
           "intervalFactor": 1,
-          "legendFormat": "Out - {{instance}}",
+          "legendFormat": "Out - {{alias}}",
           "refId": "A",
           "step": 10
         },
         {
-          "expr": "(increase(net_agg_bytes_in{instance=~\"[[triton_service]].*\"}[60s]) / 60)",
+          "expr": "(increase(net_agg_bytes_in{alias=~\"[[triton_service]].*\"}[60s]) / 60)",
           "format": "time_series",
           "interval": "1s",
           "intervalFactor": 1,
-          "legendFormat": "In - {{instance}}",
+          "legendFormat": "In - {{alias}}",
           "refId": "B",
           "step": 10
         }
@@ -1234,10 +1234,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(net_agg_packets_in{instance=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(net_agg_packets_in{alias=~\"[[triton_service]].*\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}} - {{interface}}",
+          "legendFormat": "{{alias}} - {{interface}}",
           "refId": "A"
         }
       ],
@@ -1319,10 +1319,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(net_agg_packets_out{instance=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(net_agg_packets_out{alias=~\"[[triton_service]].*\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}} - {{interface}}",
+          "legendFormat": "{{alias}} - {{interface}}",
           "refId": "A"
         }
       ],
@@ -1405,10 +1405,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(tcp_retransmitted_segment_count{instance=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(tcp_retransmitted_segment_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -1489,10 +1489,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "tcp_current_established_connections_total{instance=~\"[[triton_service]].*\"}",
+          "expr": "tcp_current_established_connections_total{alias=~\"[[triton_service]].*\"}",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -1574,10 +1574,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(tcp_duplicate_ack_count{instance=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(tcp_duplicate_ack_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -1659,10 +1659,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(tcp_listen_drop_count{instance=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(tcp_listen_drop_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -1744,10 +1744,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(tcp_failed_connection_attempt_count{instance=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(tcp_failed_connection_attempt_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -1828,10 +1828,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(tcp_passive_open_count{instance=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(tcp_passive_open_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -1912,10 +1912,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(tcp_active_open_count{instance=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(tcp_active_open_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -2007,10 +2007,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(increase(vfs_wait_length_time_count{instance=~\"[[triton_service]].*\"}[60s]) / 60)",
+          "expr": "(increase(vfs_wait_length_time_count{alias=~\"[[triton_service]].*\"}[60s]) / 60)",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A",
           "step": 10
         }
@@ -2102,11 +2102,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "vfs_elements_wait_state{instance=~\"[[triton_service]].*\"}",
+          "expr": "vfs_elements_wait_state{alias=~\"[[triton_service]].*\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A",
           "step": 10
         }
@@ -2189,10 +2189,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(vfs_read_operation_count{instance=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(vfs_read_operation_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -2274,10 +2274,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(vfs_bytes_read_count{instance=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(vfs_bytes_read_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -2359,10 +2359,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(vfs_write_operation_count{instance=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(vfs_write_operation_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -2444,10 +2444,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(vfs_bytes_written_count{instance=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(vfs_bytes_written_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],

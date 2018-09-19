@@ -82,7 +82,7 @@
           "expr": "time() - nodejs_process_start_time_seconds{service=\"cnapi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -139,7 +139,7 @@
           "expr": "nodejs_process_start_time_seconds{service=\"cnapi\"} * 1000",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -220,7 +220,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count(time_of_day{instance=~\"cnapi.\"})",
+          "expr": "count(time_of_day{alias=~\"cnapi.\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "instances",
@@ -389,7 +389,7 @@
           "expr": "heartbeating_servers_count{service=\"cnapi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "B"
         }
       ],
@@ -718,7 +718,7 @@
       "renderer": "flot",
       "seriesOverrides": [
         {
-          "alias": "{datacenter=\"us-east-stg-1b\",exported_instance=\"6557450a-4bff-424e-83ca-da45535ae349\",instance=\"cnapi0\",job=\"admin_us-east-stg-1b\",server=\"44454c4c-5300-1038-8044-b8c04f524432\",service=\"cnapi\"}",
+          "alias": "{datacenter=\"us-east-stg-1b\",exported_alias=\"6557450a-4bff-424e-83ca-da45535ae349\",alias=\"cnapi0\",job=\"admin_us-east-stg-1b\",server=\"44454c4c-5300-1038-8044-b8c04f524432\",service=\"cnapi\"}",
           "yaxis": 1
         }
       ],
@@ -829,7 +829,7 @@
           "expr": "rate(nodejs_gc_execution_count_total{service=\"cnapi\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-{{gcType}}",
+          "legendFormat": "{{alias}}-{{gcType}}",
           "refId": "A"
         }
       ],
@@ -1117,7 +1117,7 @@
           "expr": "rate(nodejs_gc_pause_seconds_total{service=\"cnapi\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-{{gcType}}",
+          "legendFormat": "{{alias}}-{{gcType}}",
           "refId": "A"
         }
       ],
@@ -1201,14 +1201,14 @@
           "expr": "nodejs_active_requests_count{service=\"cnapi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-activeRequests",
+          "legendFormat": "{{alias}}-activeRequests",
           "refId": "A"
         },
         {
           "expr": "nodejs_active_handles_count{service=\"cnapi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-activeHandles",
+          "legendFormat": "{{alias}}-activeHandles",
           "refId": "B"
         }
       ],
@@ -1501,14 +1501,14 @@
           "expr": "rate(nodejs_system_cpu_seconds_total{service=\"cnapi\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-system",
+          "legendFormat": "{{alias}}-system",
           "refId": "A"
         },
         {
           "expr": "rate(nodejs_user_cpu_seconds_total{service=\"cnapi\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-user",
+          "legendFormat": "{{alias}}-user",
           "refId": "B"
         }
       ],
@@ -1943,14 +1943,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "cpucap_effective_percentage{instance=~\"cnapi.\"}",
+          "expr": "cpucap_effective_percentage{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "cpucap_cur_usage_percentage{instance=~\"cnapi.\"}",
+          "expr": "cpucap_cur_usage_percentage{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -2135,14 +2135,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_limit{instance=~\"cnapi.\"}",
+          "expr": "mem_limit{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "mem_agg_usage{instance=~\"cnapi.\"}",
+          "expr": "mem_agg_usage{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -2226,10 +2226,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "load_average{instance=~\"cnapi.\"}",
+          "expr": "load_average{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -2310,14 +2310,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(vfs_bytes_read_count{instance=~\"cnapi.\"}[5m])",
+          "expr": "rate(vfs_bytes_read_count{alias=~\"cnapi.\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "bytes read",
           "refId": "A"
         },
         {
-          "expr": "rate(vfs_bytes_written_count{instance=~\"cnapi.\"}[5m]) * -1",
+          "expr": "rate(vfs_bytes_written_count{alias=~\"cnapi.\"}[5m]) * -1",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "bytes written",
@@ -2401,14 +2401,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "vfs_elements_run_state{instance=~\"cnapi.\"}",
+          "expr": "vfs_elements_run_state{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "run",
           "refId": "A"
         },
         {
-          "expr": "vfs_elements_wait_state{instance=~\"cnapi.\"}",
+          "expr": "vfs_elements_wait_state{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "wait",
@@ -2492,14 +2492,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_swap_limit{instance=~\"cnapi.\"}",
+          "expr": "mem_swap_limit{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "mem_swap{instance=~\"cnapi.\"}",
+          "expr": "mem_swap{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -2584,7 +2584,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "tcp_current_established_connections_total{instance=~\"cnapi.\"}",
+          "expr": "tcp_current_established_connections_total{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "connections",
@@ -2668,10 +2668,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(tcp_listen_drop_count{instance=~\"cnapi.\"}[5m])",
+          "expr": "rate(tcp_listen_drop_count{alias=~\"cnapi.\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -2752,14 +2752,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(net_agg_bytes_in{instance=~\"cnapi.\"}[5m])",
+          "expr": "rate(net_agg_bytes_in{alias=~\"cnapi.\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "bytes in",
           "refId": "A"
         },
         {
-          "expr": "rate(net_agg_bytes_out{instance=~\"cnapi.\"}[5m]) * -1",
+          "expr": "rate(net_agg_bytes_out{alias=~\"cnapi.\"}[5m]) * -1",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
