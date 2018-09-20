@@ -12,7 +12,7 @@
       }
     ]
   },
-  "description": "Triton CMON",
+  "description": "Triton Service System Overview",
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
@@ -42,86 +42,6 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 0
-      },
-      "id": 32,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "refId": "A"
-        }
-      ],
-      "thresholds": "",
-      "title": "TODO: DC Name",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "avg"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "datasource": null,
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 4,
         "y": 0
       },
       "id": 34,
@@ -161,7 +81,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(time_of_day{alias=~\"[[triton_service]].\"})",
+          "expr": "count(time_of_day{alias=~\"[[triton_service:regex]].\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -201,8 +121,8 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 7,
-        "x": 8,
+        "w": 8,
+        "x": 4,
         "y": 0
       },
       "id": 7,
@@ -242,7 +162,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(mem_limit{alias=~\"[[triton_service]].*\"})",
+          "expr": "sum(mem_limit{alias=~\"[[triton_service:regex]][0-9]+\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "metric": "mem_limit",
@@ -284,8 +204,8 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 8,
-        "x": 15,
+        "w": 9,
+        "x": 12,
         "y": 0
       },
       "id": 8,
@@ -325,7 +245,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(zfs_used{alias=~\"[[triton_service]].*\"})",
+          "expr": "sum(zfs_used{alias=~\"[[triton_service:regex]][0-9]+\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "metric": "mem_agg_usage",
@@ -389,11 +309,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "((increase(cpu_sys_usage{alias=~\"[[triton_service]].*\"}[60s]) + increase(cpu_user_usage{alias=~\"[[triton_service]].*\"}[60s])) / 60000000000)",
+          "expr": "((increase(cpu_sys_usage{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) + increase(cpu_user_usage{alias=~\"[[triton_service:regex]][0-9]+\"}[60s])) / 60000000000)",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "CPU Util - {{alias}} - {{job}}",
+          "legendFormat": "{{alias}}",
           "metric": "cpu",
           "refId": "A",
           "step": 10
@@ -483,11 +403,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "load_average{alias=~\"[[triton_service]].*\"}",
+          "expr": "load_average{alias=~\"[[triton_service:regex]][0-9]+\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "Load Average {{alias}}",
+          "legendFormat": "{{alias}}",
           "refId": "A",
           "step": 10
         }
@@ -571,7 +491,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "cpucap_cur_usage_percentage{alias=~\"[[triton_service]].*\"} / cpucap_effective_percentage{alias=~\"[[triton_service]].*\"} \n",
+          "expr": "cpucap_cur_usage_percentage{alias=~\"[[triton_service:regex]][0-9]+\"} / cpucap_effective_percentage{alias=~\"[[triton_service:regex]][0-9]+\"} \n",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -657,7 +577,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "((increase(cpu_user_usage{alias=~\"[[triton_service]].*\"}[60s])) / 60000000000)",
+          "expr": "((increase(cpu_user_usage{alias=~\"[[triton_service:regex]][0-9]+\"}[60s])) / 60000000000)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -743,7 +663,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "((increase(cpu_sys_usage{alias=~\"[[triton_service]].*\"}[60s])) / 60000000000)",
+          "expr": "((increase(cpu_sys_usage{alias=~\"[[triton_service:regex]][0-9]+\"}[60s])) / 60000000000)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -829,7 +749,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "((increase(cpu_wait_time{alias=~\"[[triton_service]].*\"}[60s])) / 60000000000)",
+          "expr": "((increase(cpu_wait_time{alias=~\"[[triton_service:regex]][0-9]+\"}[60s])) / 60000000000)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -924,7 +844,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_limit{alias=~\"[[triton_service]].*\"}",
+          "expr": "mem_limit{alias=~\"[[triton_service:regex]][0-9]+\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -933,7 +853,7 @@
           "step": 10
         },
         {
-          "expr": "mem_agg_usage{alias=~\"[[triton_service]].*\"}",
+          "expr": "mem_agg_usage{alias=~\"[[triton_service:regex]][0-9]+\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -1031,7 +951,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_swap_limit{alias=~\"[[triton_service]].*\"}",
+          "expr": "mem_swap_limit{alias=~\"[[triton_service:regex]][0-9]+\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -1040,7 +960,7 @@
           "step": 10
         },
         {
-          "expr": "mem_swap{alias=~\"[[triton_service]].*\"}",
+          "expr": "mem_swap{alias=~\"[[triton_service:regex]][0-9]+\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -1137,7 +1057,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(increase(net_agg_bytes_out{alias=~\"[[triton_service]].*\"}[60s]) / 60)",
+          "expr": "(increase(net_agg_bytes_out{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60)",
           "format": "time_series",
           "interval": "1s",
           "intervalFactor": 1,
@@ -1146,7 +1066,7 @@
           "step": 10
         },
         {
-          "expr": "(increase(net_agg_bytes_in{alias=~\"[[triton_service]].*\"}[60s]) / 60)",
+          "expr": "(increase(net_agg_bytes_in{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60)",
           "format": "time_series",
           "interval": "1s",
           "intervalFactor": 1,
@@ -1234,7 +1154,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(net_agg_packets_in{alias=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(net_agg_packets_in{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}} - {{interface}}",
@@ -1319,7 +1239,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(net_agg_packets_out{alias=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(net_agg_packets_out{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}} - {{interface}}",
@@ -1405,7 +1325,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(tcp_retransmitted_segment_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(tcp_retransmitted_segment_count{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -1489,7 +1409,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "tcp_current_established_connections_total{alias=~\"[[triton_service]].*\"}",
+          "expr": "tcp_current_established_connections_total{alias=~\"[[triton_service:regex]][0-9]+\"}",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -1574,7 +1494,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(tcp_duplicate_ack_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(tcp_duplicate_ack_count{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -1659,7 +1579,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(tcp_listen_drop_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(tcp_listen_drop_count{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -1744,7 +1664,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(tcp_failed_connection_attempt_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(tcp_failed_connection_attempt_count{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -1828,7 +1748,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(tcp_passive_open_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(tcp_passive_open_count{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -1912,7 +1832,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(tcp_active_open_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(tcp_active_open_count{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -2007,7 +1927,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(increase(vfs_wait_length_time_count{alias=~\"[[triton_service]].*\"}[60s]) / 60)",
+          "expr": "(increase(vfs_wait_length_time_count{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -2102,7 +2022,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "vfs_elements_wait_state{alias=~\"[[triton_service]].*\"}",
+          "expr": "vfs_elements_wait_state{alias=~\"[[triton_service:regex]][0-9]+\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -2189,7 +2109,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(vfs_read_operation_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(vfs_read_operation_count{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -2274,7 +2194,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(vfs_bytes_read_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(vfs_bytes_read_count{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -2359,7 +2279,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(vfs_write_operation_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(vfs_write_operation_count{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -2444,7 +2364,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(vfs_bytes_written_count{alias=~\"[[triton_service]].*\"}[60s]) / 60",
+          "expr": "increase(vfs_bytes_written_count{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -2502,150 +2422,53 @@
     "list": [
       {
         "allValue": null,
-        "current": {
-          "tags": [],
-          "text": "docker",
-          "value": "docker"
-        },
+        "datasource": null,
         "hide": 0,
         "includeAll": false,
-        "label": "triton_service",
-        "multi": false,
-        "name": "triton_service",
+        "label": "Datacenter",
+        "multi": true,
+        "name": "datacenter",
         "options": [
           {
-            "selected": false,
-            "text": "adminui",
-            "value": "adminui"
-          },
-          {
-            "selected": false,
-            "text": "amon",
-            "value": "amon"
-          },
-          {
-            "selected": false,
-            "text": "amonredis",
-            "value": "amonredis"
-          },
-          {
-            "selected": false,
-            "text": "assets",
-            "value": "assets"
-          },
-          {
-            "selected": false,
-            "text": "binder",
-            "value": "binder"
-          },
-          {
-            "selected": false,
-            "text": "ca",
-            "value": "ca"
-          },
-          {
-            "selected": false,
-            "text": "cloudapi",
-            "value": "cloudapi"
-          },
-          {
-            "selected": false,
-            "text": "cmon",
-            "value": "cmon"
-          },
-          {
-            "selected": false,
-            "text": "cnapi",
-            "value": "cnapi"
-          },
-          {
-            "selected": false,
-            "text": "cns",
-            "value": "cns"
-          },
-          {
-            "selected": false,
-            "text": "dhcpd",
-            "value": "dhcpd"
-          },
-          {
             "selected": true,
-            "text": "docker",
-            "value": "docker"
-          },
-          {
-            "selected": false,
-            "text": "fwapi",
-            "value": "fwapi"
-          },
-          {
-            "selected": false,
-            "text": "imgapi",
-            "value": "imgapi"
-          },
-          {
-            "selected": false,
-            "text": "mahi",
-            "value": "mahi"
-          },
-          {
-            "selected": false,
-            "text": "manatee",
-            "value": "manatee"
-          },
-          {
-            "selected": false,
-            "text": "moray",
-            "value": "moray"
-          },
-          {
-            "selected": false,
-            "text": "napi",
-            "value": "napi"
-          },
-          {
-            "selected": false,
-            "text": "papi",
-            "value": "papi"
-          },
-          {
-            "selected": false,
-            "text": "portolan",
-            "value": "portolan"
-          },
-          {
-            "selected": false,
-            "text": "rabbitmq",
-            "value": "rabbitmq"
-          },
-          {
-            "selected": false,
-            "text": "sapi",
-            "value": "sapi"
-          },
-          {
-            "selected": false,
-            "text": "sdc",
-            "value": "sdc"
-          },
-          {
-            "selected": false,
-            "text": "ufds",
-            "value": "ufds"
-          },
-          {
-            "selected": false,
-            "text": "vmapi",
-            "value": "vmapi"
-          },
-          {
-            "selected": false,
-            "text": "workflow",
-            "value": "workflow"
+            "text": "single-dc",
+            "value": "single-dc"
           }
         ],
-        "query": "adminui,amon,amonredis,assets,binder,ca,cloudapi,cmon,cnapi,cns,dhcpd,docker,fwapi,imgapi,mahi,manatee,moray,napi,papi,portolan,rabbitmq,sapi,sdc,ufds,vmapi,workflow",
-        "type": "custom"
+        "query": "cpu_sys_usage",
+        "refresh": 1,
+        "regex": "/.*job=\\\"admin_([^\\\"]*).*/",
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "Triton Service",
+        "multi": true,
+        "name": "triton_service",
+        "query": "cpu_sys_usage{job=~\"admin_.*\"}",
+        "refresh": 1,
+        "regex": "/.*alias=\"([^\"][a-zA-Z]*)\"*/",
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       }
     ]
   },
@@ -2680,5 +2503,5 @@
   },
   "timezone": "utc",
   "title": "Triton Service System Overview",
-  "version": 7
+  "version": 8
 }
