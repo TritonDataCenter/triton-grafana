@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "iteration": 1537541972891,
+  "iteration": 1537543025161,
   "links": [],
   "panels": [
     {
@@ -2095,6 +2095,198 @@
       "steppedLine": false,
       "targets": [
         {
+          "expr": "zfs_used{alias=~\"[[triton_service:regex]][0-9]+\"}",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "{{alias}}",
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "ZFS Used",
+      "tooltip": {
+        "shared": false,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 84
+      },
+      "height": "500px",
+      "id": 38,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "sort": "max",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/Quota/",
+          "fill": 0,
+          "legend": false
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "zfs_used{alias=~\"[[triton_service:regex]][0-9]+\"} / zfs_available{alias=~\"[[triton_service:regex]][0-9]+\"}",
+          "format": "time_series",
+          "intervalFactor": 2,
+          "legendFormat": "{{alias}}",
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "ZFS Used / Available",
+      "tooltip": {
+        "shared": false,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percentunit",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 91
+      },
+      "height": "500px",
+      "id": 37,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "sort": "max",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "/Quota/",
+          "fill": 0,
+          "legend": false
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
           "expr": "(increase(vfs_wait_length_time_count{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) / 60)",
           "format": "time_series",
           "intervalFactor": 2,
@@ -2154,7 +2346,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 84
+        "y": 91
       },
       "height": "500px",
       "id": 15,
@@ -2250,7 +2442,7 @@
         "h": 7,
         "w": 6,
         "x": 0,
-        "y": 91
+        "y": 98
       },
       "id": 26,
       "legend": {
@@ -2335,7 +2527,7 @@
         "h": 7,
         "w": 6,
         "x": 6,
-        "y": 91
+        "y": 98
       },
       "id": 28,
       "legend": {
@@ -2420,7 +2612,7 @@
         "h": 7,
         "w": 6,
         "x": 12,
-        "y": 91
+        "y": 98
       },
       "id": 27,
       "legend": {
@@ -2505,7 +2697,7 @@
         "h": 7,
         "w": 6,
         "x": 18,
-        "y": 91
+        "y": 98
       },
       "id": 29,
       "legend": {
@@ -2665,5 +2857,5 @@
   },
   "timezone": "utc",
   "title": "Triton Service System Overview",
-  "version": 11
+  "version": 12
 }
