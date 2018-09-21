@@ -16,7 +16,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "iteration": 1537541094661,
+  "iteration": 1537541972891,
   "links": [],
   "panels": [
     {
@@ -351,6 +351,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "decimals": 2,
       "description": "(user + system time)",
       "fill": 1,
       "gridPos": {
@@ -365,6 +366,7 @@
         "alignAsTable": true,
         "avg": true,
         "current": true,
+        "hideEmpty": false,
         "max": true,
         "min": true,
         "rightSide": false,
@@ -445,6 +447,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
         "h": 13,
@@ -538,6 +541,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
         "h": 13,
@@ -623,6 +627,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
         "h": 10,
@@ -709,6 +714,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
         "h": 10,
@@ -795,6 +801,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
         "h": 10,
@@ -979,6 +986,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
         "h": 11,
@@ -1077,6 +1085,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
         "h": 11,
@@ -2656,5 +2665,5 @@
   },
   "timezone": "utc",
   "title": "Triton Service System Overview",
-  "version": 10
+  "version": 11
 }
