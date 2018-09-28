@@ -55,14 +55,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "cpucap_effective_percentage{instance=~\"manatee0\"}",
+          "expr": "cpucap_effective_percentage{alias=~\"manatee0\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "cpucap_cur_usage_percentage{instance=~\"manatee0\"}",
+          "expr": "cpucap_cur_usage_percentage{alias=~\"manatee0\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -146,14 +146,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_limit{instance=~\"manatee0\"}",
+          "expr": "mem_limit{alias=~\"manatee0\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "mem_agg_usage{instance=~\"manatee0\"}",
+          "expr": "mem_agg_usage{alias=~\"manatee0\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -237,14 +237,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "cpucap_effective_percentage{instance=~\"manatee1\"}",
+          "expr": "cpucap_effective_percentage{alias=~\"manatee1\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "cpucap_cur_usage_percentage{instance=~\"manatee1\"}",
+          "expr": "cpucap_cur_usage_percentage{alias=~\"manatee1\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -328,14 +328,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_limit{instance=~\"manatee1\"}",
+          "expr": "mem_limit{alias=~\"manatee1\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "mem_agg_usage{instance=~\"manatee1\"}",
+          "expr": "mem_agg_usage{alias=~\"manatee1\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -419,14 +419,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "cpucap_effective_percentage{instance=~\"manatee2\"}",
+          "expr": "cpucap_effective_percentage{alias=~\"manatee2\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "cpucap_cur_usage_percentage{instance=~\"manatee2\"}",
+          "expr": "cpucap_cur_usage_percentage{alias=~\"manatee2\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -510,14 +510,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_limit{instance=~\"manatee2\"}",
+          "expr": "mem_limit{alias=~\"manatee2\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "mem_agg_usage{instance=~\"manatee2\"}",
+          "expr": "mem_agg_usage{alias=~\"manatee2\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
