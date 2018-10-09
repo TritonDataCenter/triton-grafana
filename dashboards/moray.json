@@ -59,7 +59,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(fast_requests_completed{instance=~\"moray.\"}[5m])) by (rpcMethod)",
+          "expr": "sum(rate(fast_requests_completed{alias=~\"moray.\"}[5m])) by (rpcMethod)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{rpcMethod}}",
@@ -146,7 +146,7 @@
           "expr": "histogram_quantile(0.99, sum(rate(fast_request_time_ms[5m])) by (le,instance))",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -314,7 +314,7 @@
           "expr": "sum(postgres_connections_open) by (instance)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -395,10 +395,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "plugin_moray_nConnectionsActive{exported_alias=\"\",instance=~\"moray.\"}",
+          "expr": "plugin_moray_nConnectionsActive{exported_alias=\"\",alias=~\"moray.\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-{{port}}",
+          "legendFormat": "{{alias}}-{{port}}",
           "refId": "A"
         }
       ],
@@ -489,14 +489,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "cpucap_effective_percentage{instance=~\"$moray\"}",
+          "expr": "cpucap_effective_percentage{alias=~\"$moray\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "cpucap_cur_usage_percentage{instance=~\"$moray\"}",
+          "expr": "cpucap_cur_usage_percentage{alias=~\"$moray\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -590,14 +590,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_limit{instance=\"$moray\"}",
+          "expr": "mem_limit{alias=\"$moray\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "mem_agg_usage{instance=\"$moray\"}",
+          "expr": "mem_agg_usage{alias=\"$moray\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -693,14 +693,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "cpucap_effective_percentage{instance=~\"$moray\"}",
+          "expr": "cpucap_effective_percentage{alias=~\"$moray\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "cpucap_cur_usage_percentage{instance=~\"$moray\"}",
+          "expr": "cpucap_cur_usage_percentage{alias=~\"$moray\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -796,14 +796,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_limit{instance=\"$moray\"}",
+          "expr": "mem_limit{alias=\"$moray\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "mem_agg_usage{instance=\"$moray\"}",
+          "expr": "mem_agg_usage{alias=\"$moray\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -899,14 +899,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "cpucap_effective_percentage{instance=~\"$moray\"}",
+          "expr": "cpucap_effective_percentage{alias=~\"$moray\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "cpucap_cur_usage_percentage{instance=~\"$moray\"}",
+          "expr": "cpucap_cur_usage_percentage{alias=~\"$moray\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -1002,14 +1002,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_limit{instance=\"$moray\"}",
+          "expr": "mem_limit{alias=\"$moray\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "mem_agg_usage{instance=\"$moray\"}",
+          "expr": "mem_agg_usage{alias=\"$moray\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -1093,10 +1093,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(plugin_moray_nRequestsCompleted{instance=~\"moray.\",exported_alias=\"\"}[5m])",
+          "expr": "rate(plugin_moray_nRequestsCompleted{alias=~\"moray.\",exported_alias=\"\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-{{port}}",
+          "legendFormat": "{{alias}}-{{port}}",
           "refId": "A"
         }
       ],
@@ -1177,10 +1177,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(plugin_moray_nRequestsFailed{exported_alias=\"\",instance=~\"moray.\"}[5m])",
+          "expr": "rate(plugin_moray_nRequestsFailed{exported_alias=\"\",alias=~\"moray.\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-{{port}}",
+          "legendFormat": "{{alias}}-{{port}}",
           "refId": "A"
         }
       ],
@@ -1274,7 +1274,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(fast_requests_completed{instance=\"$moray\"}[5m])) by (rpcMethod)",
+          "expr": "sum(rate(fast_requests_completed{alias=\"$moray\"}[5m])) by (rpcMethod)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{rpcMethod}}",
@@ -1373,7 +1373,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(fast_requests_completed{instance=\"$moray\"}[5m])) by (rpcMethod)",
+          "expr": "sum(rate(fast_requests_completed{alias=\"$moray\"}[5m])) by (rpcMethod)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{rpcMethod}}",
@@ -1472,7 +1472,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(fast_requests_completed{instance=\"$moray\"}[5m])) by (rpcMethod)",
+          "expr": "sum(rate(fast_requests_completed{alias=\"$moray\"}[5m])) by (rpcMethod)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{rpcMethod}}",
@@ -1565,7 +1565,7 @@
         ],
         "query": "fast_requests_completed",
         "refresh": 0,
-        "regex": "/.*instance=\"(moray[0-9]+)\".*/",
+        "regex": "/.*alias=\"(moray[0-9]+)\".*/",
         "sort": 1,
         "tagValuesQuery": "",
         "tags": [],

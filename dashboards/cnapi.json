@@ -82,7 +82,7 @@
           "expr": "time() - nodejs_process_start_time_seconds{service=\"cnapi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -139,7 +139,7 @@
           "expr": "nodejs_process_start_time_seconds{service=\"cnapi\"} * 1000",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -220,7 +220,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count(time_of_day{instance=~\"^cnapi.\"})",
+          "expr": "count(time_of_day{alias=~\"cnapi.\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "instances",
@@ -389,7 +389,7 @@
           "expr": "heartbeating_servers_count{service=\"cnapi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "B"
         }
       ],
@@ -627,21 +627,21 @@
           "expr": "nodejs_eventloop_max_lag_seconds{service=\"cnapi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} maxLag",
+          "legendFormat": "maxLag",
           "refId": "A"
         },
         {
           "expr": "nodejs_eventloop_min_lag_seconds{service=\"cnapi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} minLag",
+          "legendFormat": "minLag",
           "refId": "B"
         },
         {
           "expr": "irate(nodejs_eventloop_lag_seconds_total{service=\"cnapi\"}[5m]) / irate(nodejs_eventloop_samples_total{service=\"cnapi\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} avgLag",
+          "legendFormat": "avgLag",
           "refId": "C"
         }
       ],
@@ -793,7 +793,92 @@
       "gridPos": {
         "h": 9,
         "w": 12,
-        "x": 6,
+        "x": 0,
+        "y": 27
+      },
+      "id": 41,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "rate(nodejs_gc_execution_count_total{service=\"cnapi\"}[5m])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{alias}}-{{gcType}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CNAPI GC count (per second)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
         "y": 27
       },
       "id": 53,
@@ -823,21 +908,21 @@
           "expr": "nodejs_eventloop_max_time_seconds{service=\"cnapi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} maxTime",
+          "legendFormat": "maxTime",
           "refId": "A"
         },
         {
           "expr": "nodejs_eventloop_min_time_seconds{service=\"cnapi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} minTime",
+          "legendFormat": "minTime",
           "refId": "B"
         },
         {
           "expr": "irate(nodejs_eventloop_time_seconds_total{service=\"cnapi\"}[5m]) / irate(nodejs_eventloop_tick_count_total{service=\"cnapi\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} avgTime",
+          "legendFormat": "avgTime",
           "refId": "C"
         }
       ],
@@ -893,176 +978,6 @@
         "w": 12,
         "x": 0,
         "y": 36
-      },
-      "id": 41,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "rate(nodejs_gc_execution_count_total{service=\"cnapi\"}[5m])",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{instance}} {{gcType}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "CNAPI GC count (per second)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 36
-      },
-      "id": 39,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "hideZero": true,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "rate(nodejs_gc_pause_seconds_total{service=\"cnapi\"}[5m])",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{instance}} {{gcType}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "CNAPI GC pause time",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "percentunit",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 45
       },
       "id": 57,
       "legend": {
@@ -1136,6 +1051,182 @@
       "yaxes": [
         {
           "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 36
+      },
+      "id": 39,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "rate(nodejs_gc_pause_seconds_total{service=\"cnapi\"}[5m])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{alias}}-{{gcType}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CNAPI GC pause time",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percentunit",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 45
+      },
+      "id": 55,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "nodejs_active_requests_count{service=\"cnapi\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{alias}}-activeRequests",
+          "refId": "A"
+        },
+        {
+          "expr": "nodejs_active_handles_count{service=\"cnapi\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{alias}}-activeHandles",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "node activeRequests/activeHandles",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1294,7 +1385,7 @@
         "x": 0,
         "y": 54
       },
-      "id": 55,
+      "id": 24,
       "legend": {
         "avg": false,
         "current": false,
@@ -1318,24 +1409,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "nodejs_active_requests_count{service=\"cnapi\"}",
+          "expr": "sum(rate(http_requests_completed{service=\"cnapi\"}[5m])) by (status_code)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} activeRequests",
+          "legendFormat": "{{status_code}}",
           "refId": "A"
-        },
-        {
-          "expr": "nodejs_active_handles_count{service=\"cnapi\"}",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{instance}} activeHandles",
-          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "node activeRequests/activeHandles",
+      "title": "CNAPI requests by status code (per second)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1412,14 +1496,14 @@
           "expr": "rate(nodejs_system_cpu_seconds_total{service=\"cnapi\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} system",
+          "legendFormat": "{{alias}}-system",
           "refId": "A"
         },
         {
           "expr": "rate(nodejs_user_cpu_seconds_total{service=\"cnapi\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} user",
+          "legendFormat": "{{alias}}-user",
           "refId": "B"
         }
       ],
@@ -1476,12 +1560,15 @@
         "x": 0,
         "y": 63
       },
-      "id": 24,
+      "id": 18,
       "legend": {
+        "alignAsTable": false,
         "avg": false,
         "current": false,
+        "hideZero": true,
         "max": false,
         "min": false,
+        "rightSide": false,
         "show": true,
         "total": false,
         "values": false
@@ -1500,17 +1587,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(http_requests_completed{service=\"cnapi\"}[5m])) by (status_code)",
+          "expr": "sum(rate(http_requests_completed{service=\"cnapi\"}[5m])) by (route)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{status_code}}",
+          "legendFormat": "{{route}}",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "CNAPI requests by status code (per second)",
+      "title": "CNAPI requests per endpoint (per second)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1527,7 +1614,7 @@
       "yaxes": [
         {
           "format": "short",
-          "label": null,
+          "label": "requests",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -1650,15 +1737,13 @@
         "x": 0,
         "y": 72
       },
-      "id": 18,
+      "id": 26,
       "legend": {
-        "alignAsTable": false,
         "avg": false,
         "current": false,
         "hideZero": true,
         "max": false,
         "min": false,
-        "rightSide": false,
         "show": true,
         "total": false,
         "values": false
@@ -1673,21 +1758,21 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(http_requests_completed{service=\"cnapi\"}[5m])) by (route)",
+          "expr": "sum(rate(fast_client_requests_completed{service=\"cnapi\"}[5m])) by (rpcMethod)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{route}}",
+          "legendFormat": "{{rpcMethod}}",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "CNAPI requests per endpoint (per second)",
+      "title": "CNAPI moray requests by RPC (per second)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1704,7 +1789,7 @@
       "yaxes": [
         {
           "format": "short",
-          "label": "requests",
+          "label": "count",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -1827,13 +1912,14 @@
         "x": 0,
         "y": 81
       },
-      "id": 26,
+      "id": 2,
       "legend": {
+        "alignAsTable": false,
         "avg": false,
         "current": false,
-        "hideZero": true,
         "max": false,
         "min": false,
+        "rightSide": false,
         "show": true,
         "total": false,
         "values": false
@@ -1848,21 +1934,28 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": true,
+      "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(fast_client_requests_completed{service=\"cnapi\"}[5m])) by (rpcMethod)",
+          "expr": "cpucap_effective_percentage{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{rpcMethod}}",
+          "legendFormat": "cap",
           "refId": "A"
+        },
+        {
+          "expr": "cpucap_cur_usage_percentage{alias=~\"cnapi.\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "used",
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "CNAPI moray requests by RPC (per second)",
+      "title": "CNAPI cpu vs cap (zone)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1879,7 +1972,7 @@
       "yaxes": [
         {
           "format": "short",
-          "label": "count",
+          "label": "CPU %",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -2011,7 +2104,7 @@
         "x": 0,
         "y": 90
       },
-      "id": 2,
+      "id": 6,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -2037,24 +2130,24 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "cpucap_effective_percentage{instance=~\"^cnapi.\"}",
+          "expr": "mem_limit{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} cap",
+          "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "cpucap_cur_usage_percentage{instance=~\"^cnapi.\"}",
+          "expr": "mem_agg_usage{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} used",
+          "legendFormat": "used",
           "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "CNAPI cpu vs cap (zone)",
+      "title": "CNAPI memory vs cap (zone)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2070,8 +2163,8 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": "CPU %",
+          "format": "bytes",
+          "label": "DRAM",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -2128,10 +2221,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "load_average{instance=~\"^cnapi.\"}",
+          "expr": "load_average{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -2184,18 +2277,16 @@
       "fill": 1,
       "gridPos": {
         "h": 9,
-        "w": 12,
+        "w": 6,
         "x": 0,
         "y": 99
       },
-      "id": 6,
+      "id": 8,
       "legend": {
-        "alignAsTable": false,
         "avg": false,
         "current": false,
         "max": false,
         "min": false,
-        "rightSide": false,
         "show": true,
         "total": false,
         "values": false
@@ -2214,24 +2305,24 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_limit{instance=~\"^cnapi.\"}",
+          "expr": "rate(vfs_bytes_read_count{alias=~\"cnapi.\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} cap",
+          "legendFormat": "bytes read",
           "refId": "A"
         },
         {
-          "expr": "mem_agg_usage{instance=~\"^cnapi.\"}",
+          "expr": "rate(vfs_bytes_written_count{alias=~\"cnapi.\"}[5m]) * -1",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} used",
+          "legendFormat": "bytes written",
           "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "CNAPI memory vs cap (zone)",
+      "title": "CNAPI VFS read/write (zone)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2247,8 +2338,99 @@
       },
       "yaxes": [
         {
-          "format": "bytes",
-          "label": "DRAM",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 6,
+        "y": 99
+      },
+      "id": 10,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "vfs_elements_run_state{alias=~\"cnapi.\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "run",
+          "refId": "A"
+        },
+        {
+          "expr": "vfs_elements_wait_state{alias=~\"cnapi.\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "wait",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CNAPI VFS wait/run count (zone)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -2305,17 +2487,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_swap_limit{instance=~\"^cnapi.\"}",
+          "expr": "mem_swap_limit{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} cap",
+          "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "mem_swap{instance=~\"^cnapi.\"}",
+          "expr": "mem_swap{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} used",
+          "legendFormat": "used",
           "refId": "B"
         }
       ],
@@ -2369,11 +2551,11 @@
       "fill": 1,
       "gridPos": {
         "h": 9,
-        "w": 6,
+        "w": 12,
         "x": 0,
         "y": 108
       },
-      "id": 8,
+      "id": 14,
       "legend": {
         "avg": false,
         "current": false,
@@ -2397,115 +2579,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(vfs_bytes_read_count{instance=~\"^cnapi.\"}[5m])",
+          "expr": "tcp_current_established_connections_total{alias=~\"cnapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} bytes read",
+          "legendFormat": "connections",
           "refId": "A"
-        },
-        {
-          "expr": "rate(vfs_bytes_written_count{instance=~\"^cnapi.\"}[5m]) * -1",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{instance}} bytes written",
-          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "CNAPI VFS read/write (zone)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "gridPos": {
-        "h": 9,
-        "w": 6,
-        "x": 6,
-        "y": 108
-      },
-      "id": 10,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "vfs_elements_run_state{instance=~\"^cnapi.\"}",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{instance}} run",
-          "refId": "A"
-        },
-        {
-          "expr": "vfs_elements_wait_state{instance=~\"^cnapi.\"}",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{instance}} wait",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "CNAPI VFS wait/run count (zone)",
+      "title": "CNAPI established TCP connections (zone)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2579,10 +2663,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(tcp_listen_drop_count{instance=~\"^cnapi.\"}[5m])",
+          "expr": "rate(tcp_listen_drop_count{alias=~\"cnapi.\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -2590,90 +2674,6 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "CNAPI TCP listen drops",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 1,
-      "gridPos": {
-        "h": 9,
-        "w": 12,
-        "x": 0,
-        "y": 117
-      },
-      "id": 14,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "tcp_current_established_connections_total{instance=~\"^cnapi.\"}",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{instance}} connections",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "CNAPI established TCP connections (zone)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2747,18 +2747,18 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(net_agg_bytes_in{instance=~\"^cnapi.\"}[5m])",
+          "expr": "rate(net_agg_bytes_in{alias=~\"cnapi.\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} bytes in",
+          "legendFormat": "bytes in",
           "refId": "A"
         },
         {
-          "expr": "rate(net_agg_bytes_out{instance=~\"^cnapi.\"}[5m]) * -1",
+          "expr": "rate(net_agg_bytes_out{alias=~\"cnapi.\"}[5m]) * -1",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} bytes out",
+          "legendFormat": "bytes out",
           "refId": "B"
         }
       ],
@@ -2841,6 +2841,5 @@
   },
   "timezone": "",
   "title": "CNAPI",
-  "uid": "15XTsvJmk",
-  "version": 1
+  "version": 47
 }

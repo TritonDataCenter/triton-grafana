@@ -81,7 +81,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(time_of_day{instance=~\"[[triton_service:regex]].\"})",
+          "expr": "count(time_of_day{alias=~\"[[triton_service:regex]].\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -145,11 +145,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "((increase(cpu_sys_usage{instance=~\"[[triton_service:regex]][0-9]+\"}[60s]) + increase(cpu_user_usage{instance=~\"[[triton_service:regex]][0-9]+\"}[60s])) / 60000000000)",
+          "expr": "((increase(cpu_sys_usage{alias=~\"[[triton_service:regex]][0-9]+\"}[60s]) + increase(cpu_user_usage{alias=~\"[[triton_service:regex]][0-9]+\"}[60s])) / 60000000000)",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "metric": "cpu",
           "refId": "A",
           "step": 10
@@ -244,11 +244,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_agg_usage{instance=~\"[[triton_service:regex]][0-9]+\"}",
+          "expr": "mem_agg_usage{alias=~\"[[triton_service:regex]][0-9]+\"}",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "metric": "mem",
           "refId": "B",
           "step": 10
@@ -333,7 +333,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(http_requests_completed{instance=~\"[[triton_service:regex]][0-9]+\"}[5m]))by (service)",
+          "expr": "sum(rate(http_requests_completed{alias=~\"[[triton_service:regex]][0-9]+\"}[5m]))by (service)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{service}}",
@@ -506,7 +506,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(http_requests_completed{status_code=~\"5.+\",instance=~\"[[triton_service:regex]][0-9]+\"}[5m]))by (service)",
+          "expr": "sum(rate(http_requests_completed{status_code=~\"5.+\",alias=~\"[[triton_service:regex]][0-9]+\"}[5m]))by (service)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{service}}",
@@ -592,7 +592,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(http_requests_completed{instance=~\"[[triton_service:regex]][0-9]+\"}[5m])) by (status_code)",
+          "expr": "sum(rate(http_requests_completed{alias=~\"[[triton_service:regex]][0-9]+\"}[5m])) by (status_code)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{status_code}}",
@@ -765,7 +765,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(http_requests_completed{instance=~\"[[triton_service:regex]][0-9]+\"}[5m])) by (service,route)",
+          "expr": "sum(rate(http_requests_completed{alias=~\"[[triton_service:regex]][0-9]+\"}[5m])) by (service,route)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{service}}: {{route}}",
@@ -938,7 +938,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(http_requests_completed{status_code=~\"5.+\",instance=~\"[[triton_service:regex]][0-9]+\"}[5m]))by (service,route)",
+          "expr": "sum(rate(http_requests_completed{status_code=~\"5.+\",alias=~\"[[triton_service:regex]][0-9]+\"}[5m]))by (service,route)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{service}}: {{route}}",
@@ -1030,7 +1030,7 @@
         "options": [],
         "query": "http_request_duration_seconds{job=~\"admin_.*\"}",
         "refresh": 1,
-        "regex": "/.*instance=\"([^\"][a-zA-Z]*)\"*/",
+        "regex": "/.*alias=\"([^\"][a-zA-Z]*)\"*/",
         "sort": 1,
         "tagValuesQuery": "",
         "tags": [],

@@ -82,7 +82,7 @@
           "expr": "time() - nodejs_process_start_time_seconds{service=\"napi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -139,7 +139,7 @@
           "expr": "nodejs_process_start_time_seconds{service=\"napi\"} * 1000",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -537,7 +537,7 @@
           "expr": "rate(nodejs_gc_execution_count_total{service=\"napi\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-{{gcType}}",
+          "legendFormat": "{{alias}}-{{gcType}}",
           "refId": "A"
         }
       ],
@@ -622,7 +622,7 @@
           "expr": "rate(nodejs_gc_pause_seconds_total{service=\"napi\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-{{gcType}}",
+          "legendFormat": "{{alias}}-{{gcType}}",
           "refId": "A"
         }
       ],
@@ -936,14 +936,14 @@
           "expr": "nodejs_active_requests_count{service=\"napi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-activeRequests",
+          "legendFormat": "{{alias}}-activeRequests",
           "refId": "A"
         },
         {
           "expr": "nodejs_active_handles_count{service=\"napi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-activeHandles",
+          "legendFormat": "{{alias}}-activeHandles",
           "refId": "B"
         }
       ],
@@ -1027,14 +1027,14 @@
           "expr": "rate(nodejs_system_cpu_seconds_total{service=\"napi\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-system",
+          "legendFormat": "{{alias}}-system",
           "refId": "A"
         },
         {
           "expr": "rate(nodejs_user_cpu_seconds_total{service=\"napi\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}-user",
+          "legendFormat": "{{alias}}-user",
           "refId": "B"
         }
       ],
@@ -1655,14 +1655,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "cpucap_effective_percentage{instance=~\"^napi.\"}",
+          "expr": "cpucap_effective_percentage{alias=~\"napi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "cpucap_cur_usage_percentage{instance=~\"^napi.\"}",
+          "expr": "cpucap_cur_usage_percentage{alias=~\"napi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -1746,10 +1746,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "load_average{instance=~\"^napi.\"}",
+          "expr": "load_average{alias=~\"napi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -1832,14 +1832,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_limit{instance=~\"^napi.\"}",
+          "expr": "mem_limit{alias=~\"napi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "mem_agg_usage{instance=~\"^napi.\"}",
+          "expr": "mem_agg_usage{alias=~\"napi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -1923,14 +1923,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_swap_limit{instance=~\"^napi.\"}",
+          "expr": "mem_swap_limit{alias=~\"napi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "mem_swap{instance=~\"^napi.\"}",
+          "expr": "mem_swap{alias=~\"napi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -2015,14 +2015,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(vfs_bytes_read_count{instance=~\"^napi.\"}[5m])",
+          "expr": "rate(vfs_bytes_read_count{alias=~\"napi.\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "bytes read",
           "refId": "A"
         },
         {
-          "expr": "rate(vfs_bytes_written_count{instance=~\"^napi.\"}[5m]) * -1",
+          "expr": "rate(vfs_bytes_written_count{alias=~\"napi.\"}[5m]) * -1",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "bytes written",
@@ -2106,14 +2106,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "vfs_elements_run_state{instance=~\"^napi.\"}",
+          "expr": "vfs_elements_run_state{alias=~\"napi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "run",
           "refId": "A"
         },
         {
-          "expr": "vfs_elements_wait_state{instance=~\"^napi.\"}",
+          "expr": "vfs_elements_wait_state{alias=~\"napi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "wait",
@@ -2197,10 +2197,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(tcp_listen_drop_count{instance=~\"^napi.\"}[5m])",
+          "expr": "rate(tcp_listen_drop_count{alias=~\"napi.\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{alias}}",
           "refId": "A"
         }
       ],
@@ -2281,7 +2281,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "tcp_current_established_connections_total{instance=~\"^napi.\"}",
+          "expr": "tcp_current_established_connections_total{alias=~\"napi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "connections",
@@ -2365,14 +2365,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(net_agg_bytes_in{instance=~\"^napi.\"}[5m])",
+          "expr": "rate(net_agg_bytes_in{alias=~\"napi.\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "bytes in",
           "refId": "A"
         },
         {
-          "expr": "rate(net_agg_bytes_out{instance=~\"^napi.\"}[5m]) * -1",
+          "expr": "rate(net_agg_bytes_out{alias=~\"napi.\"}[5m]) * -1",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
