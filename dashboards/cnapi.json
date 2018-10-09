@@ -82,7 +82,7 @@
           "expr": "time() - nodejs_process_start_time_seconds{service=\"cnapi\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{alias}}",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
@@ -716,12 +716,7 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "{datacenter=\"us-east-stg-1b\",exported_alias=\"6557450a-4bff-424e-83ca-da45535ae349\",alias=\"cnapi0\",job=\"admin_us-east-stg-1b\",server=\"44454c4c-5300-1038-8044-b8c04f524432\",service=\"cnapi\"}",
-          "yaxis": 1
-        }
-      ],
+      "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,

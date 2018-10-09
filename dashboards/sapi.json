@@ -400,14 +400,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "cpucap_effective_percentage{alias=~\"sapi.\"}",
+          "expr": "cpucap_effective_percentage{instance=~\"sapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "cpucap_cur_usage_percentage{alias=~\"sapi.\"}",
+          "expr": "cpucap_cur_usage_percentage{instance=~\"sapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -491,10 +491,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "load_average{alias=~\"sapi.\"}",
+          "expr": "load_average{instance=~\"sapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{alias}}",
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
@@ -577,14 +577,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_limit{alias=~\"sapi.\"}",
+          "expr": "mem_limit{instance=~\"sapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "mem_agg_usage{alias=~\"sapi.\"}",
+          "expr": "mem_agg_usage{instance=~\"sapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -668,14 +668,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_swap_limit{alias=~\"sapi.\"}",
+          "expr": "mem_swap_limit{instance=~\"sapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "cap",
           "refId": "A"
         },
         {
-          "expr": "mem_swap{alias=~\"sapi.\"}",
+          "expr": "mem_swap{instance=~\"sapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "used",
@@ -760,14 +760,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(vfs_bytes_read_count{alias=~\"sapi.\"}[5m])",
+          "expr": "rate(vfs_bytes_read_count{instance=~\"sapi.\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "bytes read",
           "refId": "A"
         },
         {
-          "expr": "rate(vfs_bytes_written_count{alias=~\"sapi.\"}[5m]) * -1",
+          "expr": "rate(vfs_bytes_written_count{instance=~\"sapi.\"}[5m]) * -1",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "bytes written",
@@ -851,14 +851,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "vfs_elements_run_state{alias=~\"sapi.\"}",
+          "expr": "vfs_elements_run_state{instance=~\"sapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "run",
           "refId": "A"
         },
         {
-          "expr": "vfs_elements_wait_state{alias=~\"sapi.\"}",
+          "expr": "vfs_elements_wait_state{instance=~\"sapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "wait",
@@ -942,7 +942,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "tcp_current_established_connections_total{alias=~\"sapi.\"}",
+          "expr": "tcp_current_established_connections_total{instance=~\"sapi.\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "connections",
@@ -1026,14 +1026,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(net_agg_bytes_in{alias=~\"sapi.\"}[5m])",
+          "expr": "rate(net_agg_bytes_in{instance=~\"sapi.\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "bytes in",
           "refId": "A"
         },
         {
-          "expr": "rate(net_agg_bytes_out{alias=~\"sapi.\"}[5m]) * -1",
+          "expr": "rate(net_agg_bytes_out{instance=~\"sapi.\"}[5m]) * -1",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
