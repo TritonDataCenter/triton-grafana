@@ -1,0 +1,12 @@
+{
+  "name": "triton-grafana",
+  "description": "Grafana for TritonDC",
+  "version": "1.0.0",
+  "author": "Joyent (joyent.com)",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joyent/triton-dashboards.git"
+  },
+  "license": "MPL-2.0"
+}

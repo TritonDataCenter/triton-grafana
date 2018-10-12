@@ -1,0 +1,4 @@
+{
+    {{! "_eof" is an unused key for convenience handling the trailing comma }}
+    "_eof": null
+}
