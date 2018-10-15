@@ -107,8 +107,8 @@ mytarget:
 	echo my command
 
 ifeq ($(shell uname -s),SunOS)
-	include ./tools/mk/Makefile.go_prebuilt.targ
-	include ./tools/mk/Makefile.node_prebuilt.targ
+    include ./tools/mk/Makefile.go_prebuilt.targ
+    include ./tools/mk/Makefile.node_prebuilt.targ
 endif
 include ./tools/mk/Makefile.smf.targ
 include ./tools/mk/Makefile.targ
