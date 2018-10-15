@@ -1,5 +1,5 @@
 {
 	"name": "grafana",
-	"path": "/opt/triton/grafana/config.json",
-	"post_cmd": "/usr/sbin/svcadm restart sapi"
+	"path": "/data/grafana/sapi-inst-data.json",
+	"post_cmd": "/usr/sbin/svcadm restart grafana"
 }
