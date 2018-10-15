@@ -1,0 +1,6 @@
+[submodule "deps/grafana"]
+	path = deps/grafana
+	url = https://github.com/isaacdavis/grafana.git
+[submodule "deps/sdc-scripts"]
+	path = deps/sdc-scripts
+	url = https://github.com/joyent/sdc-scripts.git
