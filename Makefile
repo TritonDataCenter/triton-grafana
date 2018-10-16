@@ -48,7 +48,7 @@ $(STAMP_YARN): | $(NODE_EXEC) $(NPM_EXEC)
 	$(MAKE_STAMP_REMOVE)
 	rm -rf $(CACHE_DIR)/yarn
 	mkdir -p $(CACHE_DIR)/yarn/node_modules
-	cd $(CACHE_DIR)/yarn && $(NPM) install yarn
+	cd $(CACHE_DIR)/yarn && $(NPM) install --global-style yarn
 	$(MAKE_STAMP_CREATE)
 
 #
