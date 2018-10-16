@@ -6,7 +6,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joyent/triton-dashboards.git"
+    "url": "git+https://github.com/joyent/triton-grafana.git"
   },
   "license": "MPL-2.0"
 }
