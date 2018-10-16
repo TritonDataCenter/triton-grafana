@@ -50,7 +50,7 @@ $(GRAFANA_EXEC): deps/grafana/.git $(STAMP_GO_TOOLCHAIN) | $(NPM_EXEC)
 	$(GO) version
 	mkdir -p $(dir $(GRAFANA_GO_DIR))
 	rm -f $(GRAFANA_GO_DIR)
-	ln -s $(TOP)/deps/grafana $(GRAFANA_GO_DIR)
+	cp -r $(TOP)/deps/grafana $(GRAFANA_GO_DIR)
 	(cd $(GRAFANA_GO_DIR) && \
 		env -i $(GO_ENV) $(GO) run build.go setup && \
 		env -i $(GO_ENV) $(GO) run build.go build && \
