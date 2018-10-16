@@ -34,7 +34,8 @@ GRAFANA_IMPORT = github.com/grafana/grafana
 GRAFANA_GO_DIR = $(GO_GOPATH)/src/$(GRAFANA_IMPORT)
 GRAFANA_EXEC = $(GO_GOPATH)/bin/grafana-server
 
-YARN = ./node_modules/.bin/yarn
+YARN = PATH=$(TOP)/$(NODE_INSTALL)/bin:$(PATH) $(NODE) \
+    $(TOP)/node_modules/.bin/yarn
 
 #
 # Repo-specific targets
@@ -47,17 +48,17 @@ all: $(GRAFANA_EXEC)
 # project-local GOPATH, then build the binary.
 #
 $(GRAFANA_EXEC): deps/grafana/.git $(STAMP_GO_TOOLCHAIN) | $(NODE_EXEC) \
-$(NPM_EXEC)
+    $(NPM_EXEC)
 	$(GO) version
 	mkdir -p $(dir $(GRAFANA_GO_DIR))
 	rm -f $(GRAFANA_GO_DIR)
 	cp -r $(TOP)/deps/grafana $(GRAFANA_GO_DIR)
 	(cd $(GRAFANA_GO_DIR) && \
-		env -i $(GO_ENV) $(GO) run build.go setup && \
-		env -i $(GO_ENV) $(GO) run build.go build && \
-		$(NPM) install yarn && \
-		$(YARN) install --pure-lockfile && \
-		$(YARN) dev)
+	    env -i $(GO_ENV) $(GO) run build.go setup && \
+	    env -i $(GO_ENV) $(GO) run build.go build && \
+	    $(NPM) install yarn && \
+	    $(YARN) install --pure-lockfile && \
+	    $(YARN) dev)
 
 .PHONY: release
 release: all deps docs $(SMF_MANIFESTS)
