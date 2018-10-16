@@ -52,12 +52,11 @@ $(GRAFANA_EXEC): deps/grafana/.git $(STAMP_GO_TOOLCHAIN) | $(NPM_EXEC)
 	rm -f $(GRAFANA_GO_DIR)
 	ln -s $(TOP)/deps/grafana $(GRAFANA_GO_DIR)
 	(cd $(GRAFANA_GO_DIR) && \
-		env -i $(GO_ENV) \
-		$$($(GO) run build.go setup && \
-		$(GO) run build.go build && \
+		env -i $(GO_ENV) $(GO) run build.go setup && \
+		env -i $(GO_ENV) $(GO) run build.go build && \
 		$(NPM) install yarn && \
 		$(YARN) install --pure-lockfile && \
-		$(YARN) dev))
+		$(YARN) dev)
 
 .PHONY: release
 release: all deps docs $(SMF_MANIFESTS)
