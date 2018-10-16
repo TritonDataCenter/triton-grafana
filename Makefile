@@ -35,7 +35,7 @@ GRAFANA_GO_DIR = $(GO_GOPATH)/src/$(GRAFANA_IMPORT)
 GRAFANA_EXEC = $(GO_GOPATH)/bin/grafana-server
 
 YARN = PATH=$(TOP)/$(NODE_INSTALL)/bin:$(PATH) $(NODE) \
-    $(TOP)/node_modules/.bin/yarn
+    $(TOP)/$(CACHE_DIR)/yarn/node_modules/.bin/yarn
 
 #
 # Repo-specific targets
@@ -43,20 +43,27 @@ YARN = PATH=$(TOP)/$(NODE_INSTALL)/bin:$(PATH) $(NODE) \
 .PHONY: all
 all: $(GRAFANA_EXEC)
 
+STAMP_YARN := $(MAKE_STAMPS_DIR)/yarn
+$(STAMP_YARN): | $(NODE_EXEC) $(NPM_EXEC)
+	$(MAKE_STAMP_REMOVE)
+	rm -rf $(CACHE_DIR)/yarn
+	mkdir -p $(CACHE_DIR)/yarn
+	cd $(CACHE_DIR)/yarn && $(NPM) install yarn
+	$(MAKE_STAMP_CREATE)
+
 #
 # Link the "pg_prefaulter" submodule into the correct place within our
 # project-local GOPATH, then build the binary.
 #
-$(GRAFANA_EXEC): deps/grafana/.git $(STAMP_GO_TOOLCHAIN) | $(NODE_EXEC) \
-    $(NPM_EXEC)
+$(GRAFANA_EXEC): deps/grafana/.git $(STAMP_GO_TOOLCHAIN) $(STAMP_YARN)
 	$(GO) version
 	mkdir -p $(dir $(GRAFANA_GO_DIR))
+	mkdir -p $(CACHE_DIR)/yarn
 	rm -f $(GRAFANA_GO_DIR)
 	cp -r $(TOP)/deps/grafana $(GRAFANA_GO_DIR)
 	(cd $(GRAFANA_GO_DIR) && \
 	    env -i $(GO_ENV) $(GO) run build.go setup && \
 	    env -i $(GO_ENV) $(GO) run build.go build && \
-	    $(NPM) install yarn && \
 	    $(YARN) install --pure-lockfile && \
 	    $(YARN) dev)
 
