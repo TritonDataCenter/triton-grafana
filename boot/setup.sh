@@ -94,7 +94,7 @@ function grafana_ensure_nobody_owner() {
         $DASHBOARDS_FILE \
         $CERT_FILE \
         $CERT_KEY_FILE \
-        /data/prometheus/data)
+        /data/grafana/data)
     if [[ -n "$output" ]]; then
         echo "$output"
     fi
@@ -139,7 +139,7 @@ function grafana_write_config {
         mv ${config_file}.new ${config_file}
     elif ! diff ${config_file} ${config_file}.new >/dev/null; then
         # The config differs.
-        echo "Updating prometheus config ${basename}"
+        echo "Updating grafana config ${basename}"
         cp ${config_file} ${config_file}.bak
         mv ${config_file}.new ${config_file}
     fi
