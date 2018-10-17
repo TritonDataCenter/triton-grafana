@@ -81,7 +81,6 @@ release: all deps docs $(SMF_MANIFESTS)
 	# TODO filter out conf files we don't need?
 	# TODO do we actually need to copy the "scripts" dir?
 	cp -r \
-
 		$(GRAFANA_GO_DIR)/bin \
 		$(GRAFANA_GO_DIR)/conf \
 		$(GRAFANA_GO_DIR)/public \
