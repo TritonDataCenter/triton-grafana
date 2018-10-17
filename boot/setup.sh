@@ -114,7 +114,6 @@ function grafana_restart_grafana() {
         svcadm enable grafana
     elif [[ "$currState" == "online" ]]; then
             svcadm restart grafana
-        fi
     elif [[ "$currState" == "maintenance" ]]; then
         echo "Clearing grafana SMF service"
         svcadm clear grafana
