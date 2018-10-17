@@ -78,9 +78,14 @@ release: all deps docs $(SMF_MANIFESTS)
 		$(RELSTAGEDIR)/root/opt/triton/$(SERVICE_NAME)/
 	# our grafana build
 	@mkdir -p $(RELSTAGEDIR)/root/opt/triton/$(SERVICE_NAME)/grafana
+	# TODO filter out conf files we don't need?
+	# TODO do we actually need to copy the "scripts" dir?
 	cp -r \
-		$(GRAFANA_GO_DIR)/bin/solaris-amd64/grafana-server \
+
+		$(GRAFANA_GO_DIR)/bin \
+		$(GRAFANA_GO_DIR)/conf \
 		$(GRAFANA_GO_DIR)/public \
+		$(GRAFANA_GO_DIR)/scripts \
 		$(RELSTAGEDIR)/root/opt/triton/$(SERVICE_NAME)/grafana/
 	# zone boot
 	mkdir -p $(RELSTAGEDIR)/root/opt/smartdc/boot

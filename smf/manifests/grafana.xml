@@ -27,7 +27,7 @@
     <exec_method
       type="method"
       name="start"
-      exec="/opt/triton/grafana/grafana/grafana-server --config /data/grafana/conf/grafana.ini &amp;"
+      exec="/opt/triton/grafana/grafana/bin/solaris-amd64/grafana-server --homepath /opt/triton/grafana/grafana --config /data/grafana/conf/grafana.ini &amp;"
       timeout_seconds="30">
       <method_context working_directory="/opt/triton/grafana">
         <method_credential user="nobody" group="nobody" privileges="basic,net_privaddr"/>
