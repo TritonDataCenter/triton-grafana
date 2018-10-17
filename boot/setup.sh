@@ -219,11 +219,11 @@ DASHYML
 grafana_setup_delegate_dataset
 grafana_setup_certs
 grafana_setup_env
-grafana_ensure_nobody_owner
 
 # Before 'sdc_common_setup' so the grafana SMF service is imported before
 # config-agent is first setup.
 grafana_setup_grafana
+grafana_ensure_nobody_owner
 grafana_restart_grafana
 
 CONFIG_AGENT_LOCAL_MANIFESTS_DIRS=/opt/triton/grafana
