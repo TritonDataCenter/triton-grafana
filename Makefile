@@ -85,6 +85,7 @@ release: all deps docs $(SMF_MANIFESTS)
 		$(GRAFANA_GO_DIR)/conf \
 		$(GRAFANA_GO_DIR)/public \
 		$(GRAFANA_GO_DIR)/scripts \
+		$(TOP)/dashboards \
 		$(RELSTAGEDIR)/root/opt/triton/$(SERVICE_NAME)/grafana/
 	# zone boot
 	mkdir -p $(RELSTAGEDIR)/root/opt/smartdc/boot

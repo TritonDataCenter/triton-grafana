@@ -202,7 +202,7 @@ providers:
       folder: ''
       type: file
       options:
-        path: /opt/triton/grafana/dashboards
+        path: /opt/triton/grafana/grafana/dashboards
 DASHYML
 
     grafana_write_config ${CONFIG_FILE}
