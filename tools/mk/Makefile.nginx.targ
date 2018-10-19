@@ -26,7 +26,6 @@ deps/nginx/Makefile: deps/nginx/auto/configure
 .PHONY: $(NGINX_EXEC)
 $(NGINX_EXEC): | deps/nginx/Makefile
 	(cd deps/nginx && $(MAKE) && $(MAKE) install)
-	cp $(ROOT)/sapi_manifests/mako/template $(NGINX_INSTALL)/conf/nginx.conf
 
 
 DISTCLEAN_FILES += $(NGINX_INSTALL)
