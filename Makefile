@@ -72,11 +72,11 @@ $(GRAFANA_EXEC): deps/grafana/.git $(STAMP_GO_TOOLCHAIN) $(STAMP_YARN)
 	mkdir -p $(CACHE_DIR)/yarn
 	rm -f $(GRAFANA_GO_DIR)
 	cp -r $(TOP)/deps/grafana $(GRAFANA_GO_DIR)
-	(cd $(GRAFANA_GO_DIR) && \
-	    env -i $(GO_ENV) $(GO) run build.go setup && \
-	    env -i $(GO_ENV) $(GO) run build.go build && \
-	    $(YARN) install --pure-lockfile && \
-	    $(YARN) dev)
+	# (cd $(GRAFANA_GO_DIR) && \
+	#     env -i $(GO_ENV) $(GO) run build.go setup && \
+	#     env -i $(GO_ENV) $(GO) run build.go build && \
+	#     $(YARN) install --pure-lockfile && \
+	#     $(YARN) dev)
 
 #
 # The eng.git makefiles define the clean target using a :: rule. This
