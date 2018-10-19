@@ -8,6 +8,8 @@
 # Copyright (c) 2018, Joyent, Inc.
 #
 
+NGXSYMCHECK	= tools/ngx_symcheck
+
 GO_PREBUILT_VERSION = 1.11.1
 NODE_PREBUILT_VERSION = v8.11.3
 
@@ -24,6 +26,10 @@ ifeq ($(shell uname -s),SunOS)
     include ./tools/mk/Makefile.go_prebuilt.defs
     include ./tools/mk/Makefile.node_prebuilt.defs
 endif
+
+ROOT            := $(shell pwd)
+
+include ./tools/mk/Makefile.nginx.defs
 
 SERVICE_NAME = grafana
 RELEASE_TARBALL := $(SERVICE_NAME)-pkg-$(STAMP).tar.bz2
@@ -42,6 +48,11 @@ YARN = PATH=$(TOP)/$(NODE_INSTALL)/bin:$(PATH) $(NODE) \
 #
 .PHONY: all
 all: $(GRAFANA_EXEC)
+
+.PHONY: check-nginx
+check-nginx: $(NGINX_EXEC)
+	$(NGXSYMCHECK) $(NGINX_EXEC)
+prepush: check-nginx
 
 STAMP_YARN := $(MAKE_STAMPS_DIR)/yarn
 $(STAMP_YARN): | $(NODE_EXEC) $(NPM_EXEC)
@@ -67,6 +78,17 @@ $(GRAFANA_EXEC): deps/grafana/.git $(STAMP_GO_TOOLCHAIN) $(STAMP_YARN)
 	    $(YARN) install --pure-lockfile && \
 	    $(YARN) dev)
 
+#
+# The eng.git makefiles define the clean target using a :: rule. This
+# means that we're allowed to have multiple bodies that define the rule
+# and they should all take effect. We ignore the return value from the
+# recursive make clean because there is no guarantee that there's a
+# generated Makefile or that the nginx submodule has been initialized
+# and checked out.
+#
+clean::
+	-(cd deps/nginx && $(MAKE) clean)
+
 .PHONY: release
 release: all deps docs $(SMF_MANIFESTS)
 	@echo "Building $(RELEASE_TARBALL)"
@@ -81,6 +103,8 @@ release: all deps docs $(SMF_MANIFESTS)
 	# TODO filter out conf files we don't need?
 	# TODO do we actually need to copy the "scripts" dir?
 	cp -r \
+		$(ROOT)/build \
+	    	$(ROOT)/build/nginx \
 		$(GRAFANA_GO_DIR)/bin \
 		$(GRAFANA_GO_DIR)/conf \
 		$(GRAFANA_GO_DIR)/public \
@@ -123,4 +147,5 @@ ifeq ($(shell uname -s),SunOS)
     include ./tools/mk/Makefile.node_prebuilt.targ
 endif
 include ./tools/mk/Makefile.smf.targ
+include ./tools/mk/Makefile.nginx.targ
 include ./tools/mk/Makefile.targ

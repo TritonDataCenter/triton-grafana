@@ -1,0 +1,35 @@
+# -*- mode: makefile -*-
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#
+
+#
+# Copyright (c) 2014, Joyent, Inc.
+#
+
+#
+# Makefile.nginx.targ: See Makefile.nginx.defs.
+#
+# NOTE: This makefile comes from the "eng" repo. It's designed to be dropped
+# into other repos as-is without requiring any modifications. If you find
+# yourself changing this file, you should instead update the original copy in
+# eng.git and then update your repo to use the new version.
+#
+
+deps/nginx/auto/configure: | deps/nginx/.git
+
+deps/nginx/Makefile: deps/nginx/auto/configure
+	cd deps/nginx && ./auto/configure $(NGINX_CONFIG_FLAGS)
+
+.PHONY: $(NGINX_EXEC)
+$(NGINX_EXEC): | deps/nginx/Makefile
+	(cd deps/nginx && $(MAKE) && $(MAKE) install)
+	cp $(ROOT)/sapi_manifests/mako/template $(NGINX_INSTALL)/conf/nginx.conf
+
+
+DISTCLEAN_FILES += $(NGINX_INSTALL)
+
+distclean::
+	-([[ -d deps/nginx ]] && cd deps/nginx && $(MAKE) clean)
