@@ -66,7 +66,7 @@ $(STAMP_YARN): | $(NODE_EXEC) $(NPM_EXEC)
 # Link the "pg_prefaulter" submodule into the correct place within our
 # project-local GOPATH, then build the binary.
 #
-$(GRAFANA_EXEC): deps/grafana/.git $(STAMP_GO_TOOLCHAIN) $(STAMP_YARN)
+$(GRAFANA_EXEC): deps/grafana/.git
 	$(GO) version
 	mkdir -p $(dir $(GRAFANA_GO_DIR))
 	mkdir -p $(CACHE_DIR)/yarn
