@@ -90,7 +90,7 @@ clean::
 	-(cd deps/nginx && $(MAKE) clean)
 
 .PHONY: release
-release: all deps docs $(SMF_MANIFESTS)
+release: all deps docs $(SMF_MANIFESTS) check-nginx
 	@echo "Building $(RELEASE_TARBALL)"
 	@mkdir -p $(RELSTAGEDIR)/root/opt/triton/$(SERVICE_NAME)
 	cp -r \

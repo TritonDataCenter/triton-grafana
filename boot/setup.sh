@@ -145,6 +145,29 @@ function grafana_write_config {
     fi
 }
 
+# To be run while the grafana server is running
+function grafana_setup_after_start {
+zlogin ${vm_uuid} "systemctl daemon-reload && systemctl enable grafana && systemctl start grafana && systemctl status grafana" < /dev/null
+# Unrefined method to allow grafana to start and provision the dashboards.
+# Would be better to poll the curl attempts below.
+sleep 5
+# Set the CNAPI dashboard (for now) as the default org dashboard.
+cert="/zones/${vm_uuid}/root/root/grafana/grafana_cert.pem"
+curl -sSf --cacert \${cert} -u admin:admin \
+    "https://${grafana_ip}:${PORT}/api/search?type=dash-db&query=cnapi"
+dashId=\$(curl -sSf --cacert \${cert} -u admin:admin \
+    "https://${grafana_ip}:${PORT}/api/search?type=dash-db&query=cnapi" | json 0.id)
+curl -sSf --cacert \${cert} -u admin:admin \
+    "https://${grafana_ip}:${PORT}/api/org/preferences" -H content-type:application/json \
+    -d '{"theme":"","homeDashboardId":'\$dashId',"timezone":"utc"}' -X PUT
+# Change the default password
+pw=\$(openssl rand -base64 32 | tr -d "=+/")
+echo \$pw > /zones/${vm_uuid}/root/root/grafana/password.txt
+curl -sSf --cacert \${cert} -u admin:admin \
+    "https://${grafana_ip}:${PORT}/api/user/password" -H content-type:application/json \
+    -d '{"oldPassword":"admin","newPassword":'\"\${pw}\"',"confirmNew":'\"\${pw}\"'}' -X PUT
+}
+
 function grafana_setup_grafana {
     local dc_name
     local dns_domain
@@ -225,6 +248,7 @@ grafana_setup_env
 grafana_setup_grafana
 grafana_ensure_nobody_owner
 grafana_restart_grafana
+grafana_setup_after_start
 
 CONFIG_AGENT_LOCAL_MANIFESTS_DIRS=/opt/triton/grafana
 source /opt/smartdc/boot/lib/util.sh
