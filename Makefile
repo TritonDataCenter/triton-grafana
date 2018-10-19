@@ -49,10 +49,10 @@ YARN = PATH=$(TOP)/$(NODE_INSTALL)/bin:$(PATH) $(NODE) \
 .PHONY: all
 all: $(GRAFANA_EXEC)
 
-.PHONY: check-nginx
-check-nginx: $(NGINX_EXEC)
-	$(NGXSYMCHECK) $(NGINX_EXEC)
-prepush: check-nginx
+# .PHONY: check-nginx
+# check-nginx: $(NGINX_EXEC)
+# 	$(NGXSYMCHECK) $(NGINX_EXEC)
+# prepush: check-nginx
 
 STAMP_YARN := $(MAKE_STAMPS_DIR)/yarn
 $(STAMP_YARN): | $(NODE_EXEC) $(NPM_EXEC)
@@ -91,7 +91,7 @@ clean::
 	-(cd deps/nginx && $(MAKE) clean)
 
 .PHONY: release
-release: all deps docs $(SMF_MANIFESTS) check-nginx
+release: all deps docs $(SMF_MANIFESTS) $(NGINX_EXEC)
 	@echo "Building $(RELEASE_TARBALL)"
 	@mkdir -p $(RELSTAGEDIR)/root/opt/triton/$(SERVICE_NAME)
 	cp -r \
