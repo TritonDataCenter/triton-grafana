@@ -67,11 +67,12 @@ $(STAMP_YARN): | $(NODE_EXEC) $(NPM_EXEC)
 # project-local GOPATH, then build the binary.
 #
 $(GRAFANA_EXEC): deps/grafana/.git
-	$(GO) version
-	mkdir -p $(dir $(GRAFANA_GO_DIR))
-	mkdir -p $(CACHE_DIR)/yarn
-	rm -f $(GRAFANA_GO_DIR)
-	cp -r $(TOP)/deps/grafana $(GRAFANA_GO_DIR)
+	touch $(TOP)/foo
+	# $(GO) version
+	# mkdir -p $(dir $(GRAFANA_GO_DIR))
+	# mkdir -p $(CACHE_DIR)/yarn
+	# rm -f $(GRAFANA_GO_DIR)
+	# cp -r $(TOP)/deps/grafana $(GRAFANA_GO_DIR)
 	# (cd $(GRAFANA_GO_DIR) && \
 	#     env -i $(GO_ENV) $(GO) run build.go setup && \
 	#     env -i $(GO_ENV) $(GO) run build.go build && \
