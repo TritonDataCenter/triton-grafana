@@ -2191,7 +2191,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "zfs_used{alias=~\"[[triton_service:regex]][0-9]+\"} / zfs_available{alias=~\"[[triton_service:regex]][0-9]+\"}",
+          "expr": "zfs_used{alias=~\"[[triton_service:regex]][0-9]+\"} / (zfs_used{alias=~\"[[triton_service:regex]][0-9]+\"} + zfs_available{alias=~\"[[triton_service:regex]][0-9]+\"})",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{alias}}",
@@ -2202,7 +2202,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "ZFS Used / Available",
+      "title": "ZFS Used / Total",
       "tooltip": {
         "shared": false,
         "sort": 2,
