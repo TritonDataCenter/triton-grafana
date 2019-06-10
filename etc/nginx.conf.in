@@ -1,0 +1,106 @@
+user nginx nginx;
+worker_processes 1;
+
+events {
+	worker_connections 1024;
+}
+
+http {
+	include mime.types;
+	default_type application/octet-stream;
+
+	log_format  combined_withlatency '$remote_addr - $remote_user [$time_local]'
+	    '"$request" $status $body_bytes_sent $request_time '
+	    '"$http_referer" "$http_user_agent"';
+	access_log /var/log/nginx-access.log;
+	error_log /var/log/nginx-error.log;
+
+	sendfile on;
+	send_timeout 300s;
+
+	keepalive_timeout 65;
+
+	# The grafana instance itself. Only accessible from inside the zone.
+	upstream grafana {
+		server 127.0.0.1:3000 fail_timeout=0;
+	}
+
+	# The graf-proxy server. Only accessible from inside the zone.
+	upstream auth {
+		# Must keep in sync with lib/proxy.js and test/auth.js
+		server 'unix:/tmp/graf-proxy.sock' fail_timeout=0;
+	}
+
+	# http -> https redirect
+	server {
+		listen 80;
+		server_name localhost;
+		return 301 https://$host$request_uri;
+	}
+
+	# The https endpoint. Publicly accessible.
+	server {
+		listen 443 ssl;
+		server_name localhost;
+
+		add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains' always;
+
+		ssl_certificate %%CERT_FILE%%;
+		ssl_certificate_key %%KEY_FILE%%;
+
+		# Subrequest to graf-proxy
+		location = /auth {
+			internal;
+			proxy_pass http://auth;
+			proxy_pass_request_body off;
+			proxy_set_header Content-Length "";
+			proxy_set_header X-Original-URI $request_uri;
+		}
+
+		# The ping endpoint -- redirects to grafana's internal ping path
+		location = /ping {
+			proxy_set_header Authorization "";
+			proxy_set_header Host $host;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Proto $scheme;
+
+			proxy_redirect http:// https://;
+			proxy_pass http://grafana/api/health;
+			# Required for new HTTP-based CLI
+			proxy_http_version 1.1;
+			proxy_request_buffering off;
+			# Required for HTTP-based CLI to work over SSL
+			proxy_buffering off;
+		}
+
+		#
+		# Main endpoint -- issues auth subrequest to graf-proxy, sets
+		# appropriate headers, redirects to grafana instance
+		#
+		location / {
+			auth_request /auth;
+			auth_request_set $auth_username $upstream_http_x_grafana_username;
+			auth_request_set $auth_email $upstream_http_x_grafana_email;
+			auth_request_set $auth_name $upstream_http_x_grafana_name;
+
+			proxy_set_header Authorization "";
+			proxy_set_header Host $host;
+			proxy_set_header X-Real-IP $remote_addr;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Proto $scheme;
+
+			proxy_set_header X-Grafana-Username $auth_username;
+			proxy_set_header X-Grafana-Email $auth_email;
+			proxy_set_header X-Grafana-Name $auth_name;
+
+			proxy_redirect http:// https://;
+			proxy_pass http://grafana;
+			# Required for new HTTP-based CLI
+			proxy_http_version 1.1;
+			proxy_request_buffering off;
+			# Required for HTTP-based CLI to work over SSL
+			proxy_buffering off;
+		}
+	}
+}

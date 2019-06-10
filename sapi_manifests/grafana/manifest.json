@@ -1,0 +1,5 @@
+{
+	"name": "grafana",
+	"path": "/opt/triton/grafana/etc/provisioning/datasources/triton-datasources.yaml",
+	"post_cmd": "/usr/sbin/svcadm restart grafana"
+}

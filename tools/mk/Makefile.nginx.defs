@@ -1,0 +1,33 @@
+# -*- mode: makefile -*-
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#
+
+#
+# Copyright 2019 Joyent, Inc.
+#
+
+#
+# Makefile.nginx.defs: Makefile for building nginx
+#
+
+TOP ?= $(error You must include Makefile.defs before this makefile)
+
+BUILD		?= build
+NGINX_INSTALL	?= $(BUILD)/nginx
+NGINX_BUILDDIR	?= $(TOP)/$(BUILD)/nginx-build
+DISTCLEAN_FILES	+= $(NGINX_INSTALL)
+
+NGINX_CONFIG_FLAGS += \
+	--prefix=$(TOP)/$(NGINX_INSTALL) \
+	--builddir=$(NGINX_BUILDDIR) \
+	--with-cc-opt="-m64 -std=gnu99 -I/opt/local/include" \
+	--with-ld-opt="-m64 -L/opt/local/lib -R/opt/local/lib -lumem"
+
+NGINX_EXEC	= $(NGINX_INSTALL)/sbin/nginx
+
+# Ensure these use absolute paths to the executables to allow running
+# from a dir other than the project top.
+NGINX		:= $(TOP)/$(NGINX_EXEC)

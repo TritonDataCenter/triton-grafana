@@ -1,0 +1,8 @@
+/bits
+/build
+/cache
+/grafana-pkg-*.tar.gz
+/make_stamps
+/node_modules
+/npm-debug.log
+/tmp

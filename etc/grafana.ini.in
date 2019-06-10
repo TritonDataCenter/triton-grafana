@@ -1,0 +1,33 @@
+#
+# config file version
+#
+apiVersion: 1
+
+[server]
+http_addr=127.0.0.1
+
+#
+# graf-proxy handles auth, so these associated features are disabled in grafana
+# itself.
+#
+[auth]
+disable_login_form=true
+disable_signout_menu=true
+[auth.basic]
+enabled=false
+
+[auth.proxy]
+enabled=true
+header_name=X-Grafana-Username
+header_property=username
+auto_sign_up=true
+whitelist=127.0.0.1
+headers=Email:X-Grafana-Email Name:X-Grafana-Name
+
+[paths]
+data=%%DATA_DIR%%
+provisioning=%%CONF_DIR%%/provisioning
+plugins=%%CONF_DIR%%/plugins
+
+[users]
+auto_assign_org_role=Admin
