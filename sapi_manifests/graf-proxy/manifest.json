@@ -1,0 +1,5 @@
+{
+	"name": "graf-proxy",
+	"path": "/opt/triton/grafana/proxy/etc/config.json",
+	"post_cmd": "/usr/sbin/svcadm restart graf-proxy"
+}

@@ -1,0 +1,18 @@
+# config file version
+apiVersion: 1
+
+datasources:
+        - name: Triton
+          type: prometheus
+          access: proxy
+          orgId: 1
+          url: http://prometheus.{{datacenter_name}}.{{dns_domain}}:9090
+          isDefault: true
+          editable: true
+        - name: Manta
+          type: prometheus
+          access: proxy
+          orgId: 1
+          url: http://prometheus.{{region_name}}.{{dns_domain}}:9090
+          isDefault: false
+          editable: true
