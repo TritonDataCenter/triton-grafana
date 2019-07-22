@@ -11,12 +11,11 @@
 NAME = grafana
 
 GO_PREBUILT_VERSION = 1.11.1
-NODE_PREBUILT_VERSION = v6.15.1
+NODE_PREBUILT_VERSION = v6.17.0
 ifeq ($(shell uname -s),SunOS)
     # We use a 64-bit node because grafana will not build with 32-bit node 6
     NODE_PREBUILT_TAG=zone64
-    # Allow building on other than triton-origin-multiarch-18.1.0
-    NODE_PREBUILT_IMAGE=1ad363ec-3b83-11e8-8521-2f68a4a34d5d
+    NODE_PREBUILT_IMAGE=c2c31b00-1d60-11e9-9a77-ff9f06554b0f
 endif
 
 ENGBLD_USE_BUILDIMAGE = true
@@ -33,10 +32,10 @@ ifeq ($(shell uname -s),SunOS)
     include ./deps/eng/tools/mk/Makefile.agent_prebuilt.defs
 endif
 
-# triton-origin-multiarch-18.1.0
-BASE_IMAGE_UUID = b6ea7cb4-6b90-48c0-99e7-1d34c2895248
+#  triton-origin-x86_64-18.4.0
+BASE_IMAGE_UUID = a9368831-958e-432d-a031-f8ce6768d190
 BUILDIMAGE_NAME = $(NAME)
-BUILDIMAGE_PKGSRC = pcre-8.42 bind-9.10.7
+BUILDIMAGE_PKGSRC = pcre-8.42 bind-9.11.8
 BUILDIMAGE_DESC = SDC Grafana
 AGENTS = amon config registrar
 
