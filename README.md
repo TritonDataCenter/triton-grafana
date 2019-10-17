@@ -15,10 +15,8 @@ The Triton core grafana service. Triton uses
 Grafana to track its own metrics and monitor itself, as well as Manta. All
 metrics are gathered via [CMON](https://github.com/joyent/triton-cmon).
 
-Note: This repository is part of the Joyent Triton project. See the [contribution
-guidelines](https://github.com/joyent/triton/blob/master/CONTRIBUTING.md) --
-*Triton does not use GitHub PRs* -- and general documentation at the main
-[Triton project](https://github.com/joyent/triton) page.
+(This repository is part of the Joyent Triton project. For general documentation
+see the main [Triton project](https://github.com/joyent/triton) page.)
 
 ## Status
 
