@@ -5,7 +5,7 @@
 #
 
 #
-# Copyright 2019 Joyent, Inc.
+# Copyright 2020 Joyent, Inc.
 #
 
 NAME = grafana
@@ -35,7 +35,7 @@ endif
 #  triton-origin-x86_64-18.4.0
 BASE_IMAGE_UUID = a9368831-958e-432d-a031-f8ce6768d190
 BUILDIMAGE_NAME = $(NAME)
-BUILDIMAGE_PKGSRC = pcre-8.42 bind-9.11.9
+BUILDIMAGE_PKGSRC = pcre-8.42 bind-9.11.19
 BUILDIMAGE_DESC = SDC Grafana
 AGENTS = amon config registrar
 
