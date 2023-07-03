@@ -6,30 +6,33 @@
 
 <!--
     Copyright 2019 Joyent, Inc.
+    Copyright 2023 MNX Cloud, Inc.
 -->
 
 # triton-grafana
 
 The Triton core grafana service. Triton uses
-[Prometheus](https://github.com/joyent/triton-prometheus) and
+[Prometheus](https://github.com/TritonDataCenter/triton-prometheus) and
 Grafana to track its own metrics and monitor itself, as well as Manta. All
-metrics are gathered via [CMON](https://github.com/joyent/triton-cmon).
+metrics are gathered via [CMON](https://github.com/TritonDataCenter/triton-cmon).
 
-(This repository is part of the Joyent Triton project. For general documentation
-see the main [Triton project](https://github.com/joyent/triton) page.)
+(This repository is part of the Triton DataCenter project. For general
+documentation see the main
+[Triton project](https://github.com/TritonDataCenter/triton) page.)
 
 ## Status
 
-Joyent is actively developing Prometheus and Grafana services for use in Triton
-and Manta. [RFD 150](https://github.com/joyent/rfd/tree/master/rfd/0150)
+Triton DataCenter is actively developing Prometheus and Grafana services for use
+in Triton and Manta.
+[RFD 150](https://github.com/TritonDataCenter/rfd/tree/master/rfd/0150)
 describes the current plan and status.
 
 ## Setup
 
 Grafana requires either a Triton or Manta Prometheus instance to exist, and will
 also function with both simultaneously. Ensure that
-[Prometheus](https://github.com/joyent/triton-prometheus) is set up in your
-Triton and/or Manta deployment -- see the triton-prometheus README for
+[Prometheus](https://github.com/TritonDataCenter/triton-prometheus) is set up in
+your Triton and/or Manta deployment -- see the triton-prometheus README for
 Prometheus deployment instructions.
 
 Then, run the following from your Triton headnode's global zone:
@@ -53,7 +56,7 @@ SMF service.
 - A Grafana instance runs the "grafana" SMF service.
 
 - A BIND server runs on localhost and forwards DNS lookups to the Triton and
-Manta [binder](https://github.com/joyent/binder) resolvers.
+Manta [binder](https://github.com/TritonDataCenter/binder) resolvers.
 
 ### Nginx
 
@@ -73,7 +76,7 @@ directory.
 ### graf-proxy
 
 The graf-proxy performs authentication against the Triton deployment's
-[UFDS](https://github.com/joyent/sdc-ufds) instance. Upon successful
+[UFDS](https://github.com/TritonDataCenter/sdc-ufds) instance. Upon successful
 authentication via HTTP basic auth, graf-proxy sets triton-grafana-specific HTTP
 headers in its response to Nginx. Nginx then forwards authenticated requests to
 the Grafana instance.
@@ -120,19 +123,19 @@ on values from SAPI.
 Grafana is currently the only Triton service that must perform resolution of
 Manta DNS names -- specifically, the DNS names of the Manta Prometheus
 instances. Thus, Grafana must know the IP addresses of the Manta
-[binder](https://github.com/joyent/binder) resolvers. It is not sufficient to
-place these resolvers in `/etc/resolv.conf`, because there could be an
-arbitrary number of binder instances across Triton and Manta.
+[binder](https://github.com/TritonDataCenter/binder) resolvers. It is not
+sufficient to place these resolvers in `/etc/resolv.conf`, because there could
+be an arbitrary number of binder instances across Triton and Manta.
 
 Thus, the Grafana zone runs a BIND server that forwards DNS requests to the
 Triton and Manta binder resolvers as appropriate. The BIND server runs on
 localhost, and localhost is the only entry in `/etc/resolv.conf`.
 
 Any changes in the set of Manta resolvers cannot be detected by
-[config-agent](https://github.com/joyent/sdc-config-agent), because Grafana
-is not deployed under the "manta"
-[SAPI](https://github.com/joyent/sdc-sapi) application. However, Grafana can
-still query SAPI for the set of Manta resolvers.
+[config-agent](https://github.com/TritonDataCenter/sdc-config-agent), because
+Grafana is not deployed under the "manta"
+[SAPI](https://github.com/TritonDataCenter/sdc-sapi) application. However,
+Grafana can still query SAPI for the set of Manta resolvers.
 
 This image thus runs a cron job, `bin/update-named.sh`, that checks for changes
 in the set of Triton and Manta resolvers and updates the BIND configuration if

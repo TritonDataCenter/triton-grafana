@@ -1,12 +1,12 @@
 [submodule "deps/sdc-scripts"]
 	path = deps/sdc-scripts
-	url = https://github.com/joyent/sdc-scripts
+	url = https://github.com/TritonDataCenter/sdc-scripts
 [submodule "deps/nginx"]
 	path = deps/nginx
 	url = https://github.com/nginx/nginx
 [submodule "deps/grafana"]
 	path = deps/grafana
-	url = https://github.com/joyent/grafana
+	url = https://github.com/TritonDataCenter/grafana
 [submodule "deps/eng"]
 	path = deps/eng
-	url = https://github.com/joyent/eng.git
+	url = https://github.com/TritonDataCenter/eng.git
