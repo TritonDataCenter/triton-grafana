@@ -11,7 +11,10 @@
 
 NAME = grafana
 
-CC = /opt/local/bin/gcc10
+# Use gcc10 instead of default gcc7, want __illumos__ macro
+# See: https://github.com/golang/go/issues/67353
+# Remove when updating BASE_IMAGE_UUID to 24.4.1+
+CC = /opt/local/gcc10/bin/gcc
 GO_PREBUILT_VERSION = 1.22.12
 GO_GOOS = illumos
 NODE_PREBUILT_VERSION = v6.17.1
