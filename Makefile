@@ -78,12 +78,11 @@ all: $(GRAFANA_EXEC) $(NGINX_EXEC) $(STAMP_PROXY) sdc-scripts
 $(GRAFANA_EXEC): deps/grafana/.git $(STAMP_GO_TOOLCHAIN)
 	$(GO) version
 	mkdir -p $(dir $(GRAFANA_GO_DIR))
-	mkdir -p $(CACHE_DIR)/yarn
 	rm -rf $(GRAFANA_GO_DIR)
 	cp -r $(TOP)/deps/grafana $(GRAFANA_GO_DIR)
 	(cd $(GRAFANA_GO_DIR) && \
 	    env -i $(GO_ENV) $(GO) install github.com/google/wire/cmd/wire@latest && \
-	    $(WIRE) gen -tags oss ./pkg/server ./pkg/cmd/grafana-cli/runner && \
+	    env -i $(GO_ENV) $(WIRE) gen -tags oss ./pkg/server ./pkg/cmd/grafana-cli/runner && \
 	    env -i $(GO_ENV) $(GO) run build.go build)
 
 $(STAMP_PROXY): | $(NODE_EXEC) $(NPM_EXEC)
