@@ -11,6 +11,7 @@
 
 NAME = grafana
 
+CC = /opt/local/bin/gcc10
 GO_PREBUILT_VERSION = 1.22.12
 GO_GOOS = illumos
 NODE_PREBUILT_VERSION = v6.17.1
