@@ -6,22 +6,27 @@
 
 #
 # Copyright 2020 Joyent, Inc.
+# Copyright 2025 MNX Cloud, Inc.
 #
 
 NAME = grafana
 
-GO_PREBUILT_VERSION = 1.11.1
-NODE_PREBUILT_VERSION = v6.17.0
+GO_PREBUILT_VERSION = 1.22.12
+GO_GOOS = illumos
+NODE_PREBUILT_VERSION = v6.17.1
 ifeq ($(shell uname -s),SunOS)
     # We use a 64-bit node because grafana will not build with 32-bit node 6
     NODE_PREBUILT_TAG=zone64
-    NODE_PREBUILT_IMAGE=c2c31b00-1d60-11e9-9a77-ff9f06554b0f
+    # minimal-64-lts 21.4.0
+    NODE_PREBUILT_IMAGE=a7199134-7e94-11ec-be67-db6f482136c2
 endif
 
 ENGBLD_USE_BUILDIMAGE = true
 ENGBLD_REQUIRE := $(shell git submodule update --init deps/eng)
 include ./deps/eng/tools/mk/Makefile.defs
 TOP ?= $(error Unable to access eng.git submodule Makefiles.)
+
+BUILD_PLATFORM  = 20210826T002459Z
 
 include ./deps/eng/tools/mk/Makefile.smf.defs
 # this is NOT A TYPO - the nginx makefiles are local, for now.
@@ -32,10 +37,10 @@ ifeq ($(shell uname -s),SunOS)
     include ./deps/eng/tools/mk/Makefile.agent_prebuilt.defs
 endif
 
-#  triton-origin-x86_64-18.4.0
-BASE_IMAGE_UUID = a9368831-958e-432d-a031-f8ce6768d190
+#  triton-origin-x86_64-21.4.0
+BASE_IMAGE_UUID = 502eeef2-8267-489f-b19c-a206906f57ef
 BUILDIMAGE_NAME = $(NAME)
-BUILDIMAGE_PKGSRC = pcre-8.42 bind-9.11.22
+BUILDIMAGE_PKGSRC = pcre-8.45 bind-9.11.37
 BUILDIMAGE_DESC = SDC Grafana
 AGENTS = amon config registrar
 
@@ -49,14 +54,12 @@ ESLINT_FILES := $(JS_FILES)
 BASH_FILES := $(wildcard boot/*.sh) $(wildcard bin/*.sh) $(TOP)/test/runtests
 
 STAMP_PROXY := $(MAKE_STAMPS_DIR)/graf-proxy
-STAMP_YARN := $(MAKE_STAMPS_DIR)/yarn
 
 GRAFANA_IMPORT = github.com/grafana/grafana
 GRAFANA_GO_DIR = $(GO_GOPATH)/src/$(GRAFANA_IMPORT)
 GRAFANA_EXEC = $(GO_GOPATH)/bin/grafana-server
 
-YARN = PATH=$(TOP)/$(NODE_INSTALL)/bin:$(PATH) $(NODE) \
-    $(TOP)/$(CACHE_DIR)/yarn/node_modules/.bin/yarn
+WIRE = $(TOP)/$(GO_GOPATH)/bin/wire
 
 NGINX_CONFIG_FLAGS += \
 	--with-http_auth_request_module \
@@ -68,28 +71,20 @@ NGINX_CONFIG_FLAGS += \
 .PHONY: all
 all: $(GRAFANA_EXEC) $(NGINX_EXEC) $(STAMP_PROXY) sdc-scripts
 
-$(STAMP_YARN): | $(NODE_EXEC) $(NPM_EXEC)
-	$(MAKE_STAMP_REMOVE)
-	rm -rf $(CACHE_DIR)/yarn
-	mkdir -p $(CACHE_DIR)/yarn/node_modules
-	cd $(CACHE_DIR)/yarn && $(NPM) install --global-style yarn
-	$(MAKE_STAMP_CREATE)
-
 #
 # Link the "grafana" submodule into the correct place within our
 # project-local GOPATH, then build the binary.
 #
-$(GRAFANA_EXEC): deps/grafana/.git $(STAMP_GO_TOOLCHAIN) $(STAMP_YARN)
+$(GRAFANA_EXEC): deps/grafana/.git $(STAMP_GO_TOOLCHAIN)
 	$(GO) version
 	mkdir -p $(dir $(GRAFANA_GO_DIR))
 	mkdir -p $(CACHE_DIR)/yarn
-	rm -f $(GRAFANA_GO_DIR)
+	rm -rf $(GRAFANA_GO_DIR)
 	cp -r $(TOP)/deps/grafana $(GRAFANA_GO_DIR)
 	(cd $(GRAFANA_GO_DIR) && \
-	    env -i $(GO_ENV) $(GO) run build.go setup && \
-	    env -i $(GO_ENV) $(GO) run build.go build && \
-	    $(YARN) install --pure-lockfile && \
-	    $(YARN) dev)
+	    env -i $(GO_ENV) $(GO) install github.com/google/wire/cmd/wire@latest && \
+	    $(WIRE) gen -tags oss ./pkg/server ./pkg/cmd/grafana-cli/runner && \
+	    env -i $(GO_ENV) $(GO) run build.go build)
 
 $(STAMP_PROXY): | $(NODE_EXEC) $(NPM_EXEC)
 	$(MAKE_STAMP_REMOVE)
