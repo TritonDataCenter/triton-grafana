@@ -14,12 +14,12 @@ NAME = grafana
 GO_PREBUILT_VERSION = 1.22.12
 GO_GOOS = illumos
 NODE_PREBUILT_VERSION = v6.17.1
-NODE_PREBUILT_BRANCH=TRITON-2479
 ifeq ($(shell uname -s),SunOS)
     # We use a 64-bit node because grafana will not build with 32-bit node 6
     NODE_PREBUILT_TAG=zone64
     # minimal-64-lts 24.4.1
     NODE_PREBUILT_IMAGE=41bd4100-eb86-409a-85b0-e649aadf6f62
+    NODE_PREBUILT_BRANCH=PR-15
 endif
 
 ENGBLD_USE_BUILDIMAGE = true
