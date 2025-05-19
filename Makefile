@@ -11,19 +11,15 @@
 
 NAME = grafana
 
-# Use gcc10 instead of default gcc7, want __illumos__ macro
-# See: https://github.com/golang/go/issues/67353
-# Remove when updating BASE_IMAGE_UUID to 24.4.1+
-GO_ENV += CC=/opt/local/gcc10/bin/gcc
 GO_PREBUILT_VERSION = 1.22.12
 GO_GOOS = illumos
 NODE_PREBUILT_VERSION = v6.17.1
+NODE_PREBUILT_BRANCH=TRITON-2479
 ifeq ($(shell uname -s),SunOS)
     # We use a 64-bit node because grafana will not build with 32-bit node 6
     NODE_PREBUILT_TAG=zone64
     # minimal-64-lts 24.4.1
     NODE_PREBUILT_IMAGE=41bd4100-eb86-409a-85b0-e649aadf6f62
-    NODE_PREBUILT_BRANCH=TRITON-2479
 endif
 
 ENGBLD_USE_BUILDIMAGE = true
