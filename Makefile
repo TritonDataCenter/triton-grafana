@@ -37,7 +37,7 @@ ifeq ($(shell uname -s),SunOS)
 endif
 
 #  triton-origin-x86_64-24.4.1
-BASE_IMAGE_UUID =  4dd8810e-10a8-49d1-b37b-1c4e32ed6c05 
+BASE_IMAGE_UUID =  4dd8810e-10a8-49d1-b37b-1c4e32ed6c05
 BUILDIMAGE_NAME = $(NAME)
 BUILDIMAGE_PKGSRC = pcre-8.45 bind-9.16.50
 BUILDIMAGE_DESC = SDC Grafana
